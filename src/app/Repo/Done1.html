@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <!-- <script src="http://cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.min.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" />
+        
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+        <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/> 
+      
+      <style>
+        td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+    }</style>
+
+	
+</head>
+<body>
+    <button id="Collaps1" >Collaps1</button>
+        <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>TotalWeights</th>
+                        <th>AccountNo</th>
+                        <th>GoldRate</th>
+                        <th>TotalMaking</th>
+                    </tr>
+                </thead>
+               
+            </table>
+<script>
+/* Formatting function for row details - modify as you need */
+var html ='';
+    var pId =0;
+        function format ( dataSource ) {
+        //   alert(pId);
+            // console.log(dataSource[0])
+            html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+                $.map(dataSource,function(values,keys){
+                   
+                    $.map(values,function(value,key){
+// console.log(value);
+                        $.map(value,function(val,ke){
+                            
+                            if(ke == 'PurchaseDetails'){
+
+                               $.map(val,function(val1,ke1)
+                                 {
+                                     html += '<tr>';
+                                                $.map(val1,function(va,ky)
+                                                {
+                                                    if (ke1 == 0 && pId == val1.PurchaseId)
+                                                    html += '<th style="background-color:red;color:white">' + ky + '</th>';      
+                                                })
+                                                html += '</tr> <tr>';
+                                                $.map(val1, function (va, ky) {
+                                                   if(pId== val1.PurchaseId)
+                                      
+                                                    html +=
+                                                        '<td>' + va + '</td>';
+                                                })
+                                                html +='</tr></tr>';
+                                            });
+                            }
+                               if (ke == 'PurchaseStoneDetails') {
+
+                                $.map(val, function (val1, ke1) {
+                                    html += '<tr>';
+                                    $.map(val1, function (va, ky) {
+                                        if (ke1 == 0 && pId == val1.PurchaseId)
+                                            html += '<th>' + ky + '</th>';
+                                    })
+                                    html += '</tr> <tr>';
+                                    $.map(val1, function (va, ky) {
+                                        if (pId == val1.PurchaseId)
+
+                                            html +=
+                                                '<td>' + va + '</td>';
+                                    })
+                                    html += '</tr></tr>';
+                                });
+                            }
+                    })
+                        
+                    })
+                })
+            // $.map(dataSource,function(value,key)
+            // {   
+            //     $.map(value,function(va,ke)
+            //     {
+            //      html += '<tr>';
+            //         $.map(va,function(v,k)
+            //         {   
+            //             if(ke==0)
+            //             html +='<th>' + k+'</th>';                
+            //         })
+            //         html += '</tr> <tr>';
+            //         $.map(va,function(v,k)
+            //         {   
+            //         html +=
+            //         '<td>' + v +'</td>';
+
+            //         })
+            //     })
+            //     html +='</tr></tr>';
+            // });
+return html += '</table>'; } 
+$(document).ready(function() {
+    var table;
+    var getData=[];
+    // var getData1=[];
+    $.ajax({
+                type:'GET',
+                url: 'http://mteachnology.tk/api/purchaseList',
+                dataType :'JSON',
+                success: function(html){
+                    getData.push(html);
+
+                    table = $('#example').DataTable({
+                  
+                         data : html,
+                         
+                         "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "PurchaseId" },
+            { "data": "PurchaseId" },
+            { "data": "PurchaseId" },
+            { "data": "PurchaseId" }
+        ],
+        "order": [[1, 'asc']]
+    } );}
+            });
+
+
+            $('#example').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+             pId=  tr.find('td').eq(1).text();
+          var row = table.row(tr);
+          if (row.child.isShown()) {
+              // This row is already open - close it
+              row.child.hide();
+    
+              html ='';
+              tr.removeClass('shown');
+          } else {
+              // Open this row
+            //   row.child(format(getData1)).show();
+              row.child(format(getData)).show();
+              tr.addClass('shown');
+          }
+      });
+      $("#Collaps1").on("click", function () {
+
+        //Open all of the child rows
+        $("td.details-control").click();
+
+    })
+  });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+
+<app-navbar></app-navbar>
+
+<section id="form-action-layouts container">
+  <div class="row ">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-content collpase show">
+                  <div class="card-body">
+       
+                      <form class="form" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
+               
+
+                        <div class="form-body">
+                        
+                            <div class="col">
+                                <h6 class="form-sectioSn"><i class="fa fa-user"></i> Salary
+                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="text-info"> </span>
+                                
+                                </h6>
+                              <HR>
+                              </div>
+                            <!-- <input type="text" value="123" disabled class="disabled"> -->
+                      </div>
+                   <div class="container-fluid">
+                      <div class="row">
+                          <div class=" col ">
+                              <label for="projectinput2">Account Type</label>
+                              <select class="form-control input-md" (change)="onTypeChange($event.target.value)"  name="AccountType" #AccountType="ngModel" [(ngModel)]="salary.AccountType">
+                                  <option selected="">Account Type</option>
+                                  <option  *ngFor="let item of accountlist" [value]="item.Name">{{item.Name}}</option>
+                                 
+                              </select>
+                              </div>
+                          <div class="col">
+                              <label>Sale man/Worker Name</label>
+                              <select class="form-control input-md"   name="CustomerName" #CustomerName="ngModel" [(ngModel)]="salary.CustomerName">
+                                  <option selected="">--Select one--</option>
+                                  <option  *ngFor="let item of namelist" [value]="item.AccountMasterId">{{item.Name}}</option>
+                                 
+                              </select>
+                            </div>
+                            <div class="col">
+                                <label>Salary Amount </label>
+                                <input type="text" myNumberOnly class="form-control"  name="SlaryAmount" #SlaryAmount="ngModel" [(ngModel)]="salary.SlaryAmount">
+                              </div>
+                              <div class="col">
+                                <br>
+                                <button type="submit" class="btn btn-primary " style="margin-right:1px" [disabled]="!userRegistrationForm.valid" > Submit   <i class="fa fa-database position-right"></i></button>
+
+                                </div>
+                        </div>
+                   </div>
+                  
+                        </form>
+                  </div>
+              </div>
+          </div>
+         
+      </div>
+
+    </div>
+  
+
+</section>
+

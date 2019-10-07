@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+  <div class="row match-height">
+      <div class="col">
+          <div class="card">
+              <div class="card-header">
+                  <!-- <h4 class="card-title" id="basic-layout-form">Project Info</h4> -->
+                  <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                      <ul class="list-inline mb-0">
+                          <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                          <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                          <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                          <li><a data-action="close"><i class="ft-x"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="card-content collapse show">
+                  <div class="card-body">
+                      <form class="form" #karatmaster="ngForm" (ngSubmit)="OnSubmit(karatmaster)">
+                        <input type="hidden"  name="KaratMasterId" #KaratMasterId="ngModel"  [(ngModel)]="karatservices.karatmaster.KaratMasterId"  class="form-control" >
+                      
+                        <div class="form-body">
+                              <h4 class="form-section"><i class="ft-user"></i> Karat Master </h4>
+                              <div class="row">
+                                      <div class="col-md-3">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Karat Code</label>
+                                                 <!-- <h2>My favorite hero is: {{myHero}}</h2> -->
+                                                <input type="text" (keyup)="onKeyPress($event)" name="KaratCode" #KaratCode="ngModel" required [(ngModel)]="karatservices.karatmaster.KaratCode"  class="form-control" >
+                                              </div>
+                                            </div>
+                                           <div class="col-md-3">
+                                                  <div class="form-group">
+                                                    <label for="projectinput1">Description</label>
+                                                    <input type="text" name="Description" #Description="ngModel" required [(ngModel)]="karatservices.karatmaster.Description"  class="form-control" >
+                                                  </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                                  <div class="form-group">
+                                                    <label for="projectinput1">Standard Purity</label>
+                                                    <input type="text" name="StandredPurity" #StandredPurity="ngModel" required [(ngModel)]="karatservices.karatmaster.StandredPurity"  class="form-control" >
+                                                  </div>
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label>&nbsp;</label>           
+               <div class="mt-0">
+                 <button type="submit" class="btn btn-primary " style="margin-right:1px" [disabled]="!karatmaster.valid" > Submit   <i class="fa fa-database position-right"></i></button>
+               
+               </div>
+              </div>
+              </div>
+              <app-karat-masters-list></app-karat-masters-list>
+                                  
+              </div></form>
+          </div>
+      </div>
+
+      
+  </div>
+  </div></div></section>

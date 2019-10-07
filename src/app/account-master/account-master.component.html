@@ -1,0 +1,261 @@
+
+<app-navbar></app-navbar>
+
+<section id="form-action-layouts container">
+  <div class="row ">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-content collpase show">
+                  <div class="card-body">
+
+                      <form class="form" #AccountForms="ngForm" (ngSubmit)="OnSubmit(AccountForms)">
+
+                        <div class="form-body">
+
+                            <div class="col">
+                   
+                              <h6 class="form-sectioSn"><i class="fa fa-user"></i> Genral Account
+                                &nbsp;&nbsp;&nbsp;&nbsp; <span class="text-info"> </span>
+
+                                </h6>
+                              <HR>
+                              </div>
+                            <!-- <input type="text" value="123" disabled class="disabled"> -->
+
+
+                          <div class="row">
+                              <div class=" col ">
+                                  <label for="projectinput2">Account Type</label>
+
+                                <!-- <div class="input-group">
+                                  <div class="input-group-prepend">
+
+                                  </div>
+                                  <input id="issueinput5" list="atype" required name="priority" class="form-control" data-toggle="tooltip"
+                                  data-trigger="hover" data-placement="top" data-title="Priority" data-original-title="" title=""
+                                   name="AccountTypeId" #AccountTypeId="ngModel" [(ngModel)]="account.AccountTypeId" autocomplete="off"/>
+
+                                   <div class="input-group-append">
+                                   <span class="input-group-text bg-info text-white" (click)="addType(AccountType.value)"> <i class="fa fa-plus"></i> </span>
+                                  </div>
+                                   <datalist id="atype" >
+                                    <option *ngFor="let alist of accountlist" data-value="{{alist.AccountTypeId}}">{{alist.Name}}</option>
+                                  </datalist>
+                                </div>-->
+                                  <select class="form-control"  name="AccountTypeId" required #AccountTypeId="ngModel" (change)="dropchange($event)" [(ngModel)]="accountService.account.AccountTypeId" >
+                                    <option  *ngFor="let item of accountlist" [value]="item | json">{{item.Name}}</option>
+                                </select>
+
+                                  <!-- <input type="text" id="projectinput2" class="form-control" placeholder="Account Type" name="lname"> -->
+                              </div>
+                            <div class=" col">
+                                  <label for="projectinput1">First Name</label>
+                                  <span class="validation-error" *ngIf="Name.invalid && Name.touched">*This field is required.</span>
+
+                                  <input type="text"  class="form-control" name="Name" #Name="ngModel" [(ngModel)]="accountService.account.Name" (blur)="onbuluer()" (keyup)="onKeyPress($event)" required>
+                                </div>
+                                <div class=" col">
+                                    <label for="projectinput1">Last Name</label>
+
+                                    <span class="validation-error" *ngIf="LastName.invalid && LastName.touched">*This field is required.</span>
+                                    <input type="text"  class="form-control"  name="LastName" #LastName="ngModel" [(ngModel)]="accountService.account.LastName" (blur)="onbuluer()" (keyup)="onKeyPress($event)" required>
+
+                                    <!-- <input type="text"  class="form-control"  name="LName" #LName="ngModel" [(ngModel)]="account.LName" (blur)="onbuluer()" (keyup)="onKeyPress($event)" required> -->
+                                  </div>
+                                  <div class=" col ">
+                                      <label for="projectinput1">Phono No</label>
+
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                          </div>
+                                          <input myNumberOnly (blur)="onbuluer()" (keyup)="onKeyPress($event)" list="browsers" class="form-control" #newValue (keyup.enter)="addValue(newValue.value)"
+                                          (keyup.space)="delphno(newValue.value)"
+                                          (blur)="newValue.value='' "
+                                         autocomplete="off" onfocus="this.placeholder=''" onblur="this.placeholder='Phono'">
+                                          <div class="input-group-append">
+                                            <span class="input-group-text bg-info text-white">{{total}}</span>
+                                          </div>
+                                          <datalist id="browsers" >
+                                            <option *ngFor="let ph of phonoList" value="{{ph}}"></option>
+                                          </datalist>
+
+                                        </div>
+                                      <!-- <input type="text" id="projectinput1" class="form-control" placeholder="Phono No" name="fname"> -->
+                                  </div>
+                                  <div class="col">
+                                    <label for="projectinput1">Mobile No</label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+
+                                        </div>
+                                        <input myNumberOnly (blur)="onbuluer()" (keyup)="onKeyPress($event)" list="browsers1" myNumberOnly class="form-control" #newValue1 (keyup.enter)="addmobeile(newValue1.value)"
+                                        (keyup.space)="delmobeile(newValue1.value)"
+                                        (blur)="newValue1.value='' "
+
+                                        autocomplete="off">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text bg-info text-white">{{mTotal}}</span>
+                                        </div>
+                                        <datalist id="browsers1" >
+                                          <option *ngFor="let mblist of mobileList" value="{{mblist}}"></option>
+                                        </datalist>
+
+                                      </div>
+                                    <!-- <input type="text" id="projectinput1" class="form-control" placeholder="Phono No" name="fname"> -->
+                                </div>
+
+
+                          </div>
+                          <div class="row">
+                              <div class=" col-md-3 ">
+                                  <label for="projectinput2"> Email</label>
+                                  <span class="validation-error" *ngIf="Email.invalid && Email.touched">*This field is required.</span>
+
+                                  <!-- <input type="text"  class="form-control" disabled placeholder="Code"  value={{accountService.maxAccountcode}} name="AccountCode" #AccountCode="ngModel" [(ngModel)]="account.AccountCode"> -->
+                                  <input type="email" (blur)="onbuluer()" (keyup)="onKeyPress($event)" class="form-control"    name="Email" #Email="ngModel" [(ngModel)]="accountService.account.Email" required>
+
+
+                                </div>
+                              <div class="col-md-3">
+                                  <label for="projectinput2">Reference</label>
+                                  <span class="validation-error" style="color:rgb(241, 19, 19)" *ngIf="Reference.invalid && Reference.touched"> &nbsp; *This field is required.</span>
+
+                                  <input type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)" id="projectinput2" class="form-control" required name="Reference" #Reference="ngModel" [(ngModel)]="accountService.account.Reference">
+
+                                </div>
+
+                                <div class=" col-md-6 ">
+                                    <label for="projectinput1">Address </label>
+                                    <span class="validation-error" *ngIf="Address.invalid && Address.touched">*This field is required.</span>
+
+                                    <textarea type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)" style="height:36px" id="projectinput1" class="form-control" required name="Address" #Address="ngModel" [(ngModel)]="accountService.account.Address">
+                                      </textarea>
+
+                                    </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class=" col ">
+                                    <label for="projectinput1">House# </label>
+
+                                    <span class="validation-error" *ngIf="House.invalid && House.touched">*This field is required.</span>
+                                    <input type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)" id="projectinput1" class="form-control" name="House" #House="ngModel" required [(ngModel)]="accountService.account.House">
+                                  </div>
+                                <div class=" col ">
+
+                                    <label for="projectinput2">Block</label>
+                                <span class="validation-error" *ngIf="Block.invalid && Block.touched">*This field is required.</span>
+
+                                    <input type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)" class="form-control"  name="Block" #Block="ngModel" [(ngModel)]="accountService.account.Block" required>
+                                </div>
+                                <div class=" col ">
+                                    <label for="projectinput2">Street</label>
+                                <span class="validation-error" *ngIf="Street.invalid && Street.touched">*This field is required.</span>
+
+                                    <input type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)"  class="form-control"  name="Street" #Street="ngModel" [(ngModel)]="accountService.account.Street" required>
+                                </div>
+                                <div class=" col ">
+                                    <label for="projectinput2">Near</label>
+                                <span class="validation-error" *ngIf="Near.invalid && Near.touched">*This field is required.</span>
+
+                                    <input type="text" (blur)="onbuluer()" (keyup)="onKeyPress($event)" class="form-control"  name="Near" #Near="ngModel" [(ngModel)]="accountService.account.Near" required>
+                                </div>
+                                <div class=" col ">
+                                    <label for="projectinput2">Country</label>
+                                    <select class="form-control input-md" (change)="onCityChange($event.target.value)"  name="Country" #Country="ngModel" [(ngModel)]="accountService.account.Country">
+                                        <option selected="">select Country</option>
+                                        <option  *ngFor="let item of countrylist" [value]="item.id">{{item.name}}</option>
+
+                                    </select>
+                                <!-- <div class="validation-error" *ngIf="Country.invalid && Country.touched">*This field is required.</div> -->
+                                </div>
+                                <div class=" col ">
+                                    <label for="projectinput1">City </label>
+                                    <span class="validation-error" *ngIf="CityName.invalid && CityName.touched">*This field is required.</span>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+
+                                        </div>
+                                        <input (blur)="onbuluer()" (keyup)="onKeyPress($event)" list="citylist" class="form-control" name="CityName" #CityName="ngModel" [(ngModel)]="accountService.account.CityName" required
+
+                                        autocomplete="off">
+
+                                        <datalist id="citylist" >
+                                          <option *ngFor="let mblist of citylist" value="{{mblist.CityName}}"></option>
+                                        </datalist>
+
+                                      </div>
+                                    <!-- <input type="text" id="projectinput1" class="form-control" placeholder="Phono No" name="fname"> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class=" col-md-2 ">
+                                      <label for="projectinput1">Curancey </label>
+                                      <select id="issueinput5" name="priority" required class="form-control" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Priority" data-original-title="" title="" name="CuranceyId" #CuranceyId="ngModel" [(ngModel)]="accountService.account.CuranceyId">
+                                        <option *ngFor="let title of curencylist" [value]="title.CurrencyId">
+                                          {{title.CurrencyName}}
+                                        </option>
+
+                                        </select>
+                                  </div>
+                                  <div class=" col-md-2 ">
+                                      <label for="projectinput2">Gold Blance</label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                          </div>
+                                          <input class="form-control" myNumberOnly name="gbvalue" #gbvalue="ngModel" required [(ngModel)]="accountService.account.gbvalue">
+                                          <input class="form-control" type="hidden" name="GoldBlance" #GoldBlance="ngModel"  [(ngModel)]="accountService.account.GoldBlance">
+                                          <div class="input-group-append" style="height:36px"(click)="gBlanceset();" title="Click to Change Status" >
+                                            <span class="input-group-text bg-info text-white" >{{gBlance}}</span>
+                                          </div>
+                                        </div>
+                                    </div>
+                                  <div class=" col-md-2 ">
+                                      <label for="projectinput2">Cash Blance</label>
+                                      <div class="input-group">
+                                          <div class="input-group-prepend">
+                                          </div>
+                                          <input class="form-control" myNumberOnly  name="cbvalue" #cbvalue="ngModel" required [(ngModel)]="accountService.account.cbvalue">
+                                          <input class="form-control" type="hidden" name="CashBlance" #CashBlance="ngModel"  [(ngModel)]="accountService.account.CashBlance">
+                                          <div class="input-group-append" style="height:36px" (click)="cBlanceset();" title="Click to Change Status">
+                                            <span class="input-group-text bg-info text-white">{{cBlance}}</span>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class=" col-md-6">
+                                        <label for="projectinput2">&nbsp;</label>
+                                        <!-- [disabled]="!AccountForms.valid" -->
+                                        <div class="input-group">
+                                          <button type="submit" class="btn btn-primary " style="margin-right:1px" > Add Record   <i class="fa fa-database position-right"></i></button>
+                                          <button type="button" class="btn btn-info"  style="margin-right:1px"> Update <i class="ft-thumbs-up position-right"></i></button>
+                                          <button type="button" class=" btn btn-danger "  style="margin-right:1px">Delete <i class="ft-thumbs-up position-right"></i></button>
+                                          <button type="button" routerLink='/accountlist' class="accountlist btn btn-success "  style="margin-right:1px">Account List <i class="ft-thumbs-up position-right"></i></button>
+                                          <button type="button" (click)="onValueVhange()" >Test</button>
+                                        </div>
+                                        </div>
+
+
+                              </div>
+
+                                <hr>
+                                 <account-masterlist></account-masterlist>
+
+
+                            </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+    </div>
+
+
+</section>
+

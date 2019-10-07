@@ -1,0 +1,423 @@
+
+<app-navbar></app-navbar>
+
+<section id="basic-form-layouts" class="container-fluid"  >
+    <div class="row " style="width: 101%;">
+        <div class="col">
+            <div class="card " style="height:100%" >
+        
+                <div class="card-content collapse show"style="padding-bottom:0px;">
+                    <div class="card-body">
+                
+                        <form id="purchaseform"  class="form" #purchase="ngForm" (ngSubmit)="OnSubmit(purchase)">
+                            <div class="form-body">
+                             
+                                <div class="row" style="border:1px solid rgb(58, 144, 179); margin-bottom: 1px">
+                                    <div class="col">
+                                        <div class="form-group">
+                                        <p style="    margin-top: 4px; margin-bottom: 1rem;font-size: 19px;background: rgb(30, 144, 255);color: white;padding: 13px;padding-left: 24px;">Purchase </p>
+                                      </div> 
+                                  </div>
+                                    <div class="col">
+                                          <div class="form-group">
+                                            <label for="projectinput1">Bill No</label>
+                                            <input type="text" required aria-required="true" myNumberOnly class="form-control" name="BillNo" #BillNo="ngModel" [(ngModel)]="purchaseService.purchase.BillNo"  required>
+                                        </div> 
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="projectinput1">Date</label>
+                                            <input type="date" class="form-control" required name="PurchaseDate" #PurchaseDate="ngModel" [(ngModel)]="purchaseService.purchase.PurchaseDate">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col">
+                                        <div class="form-group">
+                                            <label for="projectinput1">Code</label>
+                                            <select style="border: 1px solid " class="form-control "  
+                                            name="AccountNo" #AccountNo="ngModel" [(ngModel)]="purchaseService.purchase.AccountNo">
+                                                <option  *ngFor="let item of accountlist" [value]="item.Name">{{item.Name}} &nbsp;&nbsp;|&nbsp;&nbsp;{{item.ChildCode}}</option>
+                                               
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="projectinput1">Code</label>
+                                                <select style="border: 1px solid " class="form-control input-md selectpicker" required data-show-subtext="true" data-live-placeholder="Search" data-live-search="true" 
+                                                name="PurchaseDate" #AccountNo="ngModel" [(ngModel)]="purchaseService.purchase.AccountNo">
+                                                    <option  *ngFor="let item of accountlist" [value]="item.AccountMasterId">{{item.Name}} &nbsp;&nbsp;|&nbsp;&nbsp;{{item.ChildCode}}</option>
+                                                   
+                                                </select>
+                                            </div>
+                                    </div> -->
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="projectinput1">Name</label>
+                                            <!-- <select class="form-control " required 
+                                            name="AccountNo" #AccountNo="ngModel" [(ngModel)]="purchaseService.purchase.AccountNo">
+                                                    <option  *ngFor="let item of accountlist" data-value={{item.Name}}>{{item.Name}} &nbsp;&nbsp;|&nbsp;&nbsp;{{item.ChildCode}}</option>
+                                                   
+                                                </select> -->
+                                                <!-- (ngModelChange)="OnSelect($event)" -->
+                                                <ng-select  [items]="accountlist"
+                                                bindLabel="newvalues"
+                                                
+                                                required
+                                                [clearable] ="true" 
+                                                  [virtualScroll]="true"
+                                                  [ngModelOptions]="{standalone: true}"
+                                                placeholder="Select Name" 
+                                                name="AccountMasters" #AccountMasters="ngModel" [(ngModel)]="purchaseService.purchase.AccountMasters"
+                                              >
+                                     </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <!-- <label for="projectinput1">Currency</label> -->
+                                            <label for="projectinput1">Currency</label>
+                                            <select  class="form-control "  
+                                            name="CurrencyCode" #CurrencyCode="ngModel" [(ngModel)]="purchaseService.purchase.CurrencyCode">
+                                                <option  *ngFor="let item of currencyList" [value]="item.Code">{{item.Code}}</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                            <span> <input type="checkbox" required style="margin: -10px 0 0 0;" > </span>
+                                        <div class="form-group" style="margin-bottom: 10px;">
+                                      
+                                             <select  class="form-control" required (change)="onRateCodeChange($event.target.value)" name="RateCode" #RateCode="ngModel" [(ngModel)]="purchaseService.purchase.RateCode"> 
+                                                 <option  *ngFor="let item of ratemasterlist" data-value="{{item.RateMasterId}}"  [selected]="item.RateCode == 'GMS'">{{item.RateCode}}</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                                <label for="projectinput1" (click)="getRateFix()">Rate Fix</label>
+                                            <input type="text" value="{{rateName}}" required class="form-control" name="GoldRate" #GoldRate="ngModel" [(ngModel)]="purchaseService.purchase.GoldRate">
+                                        
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                      
+                                <div class="row" style="border-top:1px solid rgb(58, 144, 179);border-right:1px solid rgb(58, 144, 179) ;border-left:1px solid rgb(58, 144, 179)" >
+                                    <div class="col">
+                                            <!-- <div class="form-group" *ngIf="defaultSettingService.readonly==true" >
+                                                <label for="projectinput1">Sub Name</label>
+                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PdItemName" required #PdItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PdItemName" >
+                                                <option  *ngFor="let item of ItemListList" data-value={{item.SubItemId}}>{{item.SubItemName}}</option>
+                                            </select>
+                                            </div> -->
+                                            <!-- <div class="form-group"  >
+                                                <label for="projectinput1">Item Name</label>
+                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PdItemName" required #PdItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PdItemName" >
+                                                <option  *ngFor="let item of ItemListList" data-value={{item.ItemName}}>{{item.ItemName}}</option>
+                                            </select>
+                                            </div> -->
+                                            <div class="form-group">
+                                                    <label for="projectinput1"> Item Name</label>
+                                            <ng-select [items]="ItemListList"
+                                            bindLabel="ItemName"
+                                            clearAllText ="false"
+                                            searchable =false
+
+                                            placeholder="Select Name"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [ngClass]="{'input':flag_ItemId}"
+
+                                            name="Items" required #Items="ngModel" [(ngModel)]="purchaseService.purchase.Items">
+                                 </ng-select>
+                                </div>
+                                        </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Net&nbsp;Weight</label>
+                                        <input [ngClass]="{'input':flag_Weight}"   myNumberOnly   class="form-control" required name="PdWeight" #PdWeight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="this.purchaseService.purchase.PdWeight">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1"> Wastage&nbsp;% </label>
+                                        <input type="text" myNumberOnly [ngClass]="{'input':flag_WastePercent}"  class="form-control" required name="PdWastegePercent" (keyup)="CalculatePureWeight()" #RateCode="ngModel" [(ngModel)]="purchaseService.purchase.PdWastegePercent">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">{{lblcart}}</label>
+                                        <!-- <select  class="form-control"   required    (change)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity">  -->
+                                            <ng-select [items]="RattiList"
+                                            bindLabel="Purity"
+                                            bindValue="Purity"
+                                            placeholder="Select"
+                                            [ngModelOptions]="{standalone: true}"
+                                            (change)="CalculatePureWeight()"
+
+                                            name="Pdpurity" required #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                 </ng-select>
+                                    
+                                            <!-- <input type="text"   class="form-control"  (change)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity"> -->
+                                           
+                                            <!-- <option  *ngFor="let item of karatmasterList ;let i = index" [value]="item.KaratCode" data-value={{item.KaratCode}}>{{item.KaratCode}}</option> -->
+                                          
+                                       <!-- </select>     -->
+                                    </div>
+                                </div>
+                                <!-- <div class="col">
+                                    <div class="form-group" *ngIf="defaultSettingService.readonly!=true">
+                                        <label for="projectinput1" (click)="togglelbl()" (click)="CalculatePureWeight()">{{lblcart}}</label>
+                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" value={{purchaseService.purchase.Pdpurity}} [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                    </div>
+                                    <div class="form-group" *ngIf="defaultSettingService.readonly=true">
+                                        <label for="projectinput1" (click)="togglelbl()" (click)="CalculatePureWeight()">{{lblcart}}</label>
+                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" value={{purchaseService.purchase.Pdpurity}} [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                    </div>
+                                </div> -->
+                                
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Pure&nbsp;Weight</label>
+                                        <input type="text" class="form-control" required name="PdPureWeight" myNumberOnly  #PdPureWeight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="purchaseService.purchase.PdPureWeight">
+                                    </div >
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">QTY</label>
+                                        <input type="text"class="form-control" [ngClass]="{'input':flag_Quantity}" myNumberOnly required name="PdQuantity" #PdQuantity="ngModel" [(ngModel)]="purchaseService.purchase.PdQuantity">
+                                    </div>
+                                </div>
+                           
+<!-- --------------------------- -->
+                            </div>
+                            <div class="row" style="border-bottom:1px solid rgb(58, 144, 179);border-right:1px solid rgb(58, 144, 179) ;border-left:1px solid rgb(58, 144, 179)">
+                                <div class="col">
+                                        <div class="form-group">
+                                            <label for="projectinput1">Item Rate</label>
+                                            <input type="text" required class="form-control" myNumberOnly [ngClass]="{'input':flag_ItemRate}"  name="PdItemRate" #PdItemRate="ngModel"  (keyup)="calculateRate()" [(ngModel)]="purchaseService.purchase.PdItemRate">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="projectinput1">Item Gold Price</label>
+                                            
+                                            <input type="text"   class="form-control" myNumberOnly [ngClass]="{'input':flag_GoldPrice}"  name="PdGoldPrice" #PdGoldPrice="ngModel" [(ngModel)]="purchaseService.purchase.PdGoldPrice">
+                                        </div>
+                                    </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="projectinput1" (click)="makingChnage()">{{making}}</label>
+                                    <!-- (keyup)="calculateMaking()" -->
+                                    <input type="text" NumberOnly   myNumberOnly [ngClass]="{'input':flag_TotalMaking}"   class="form-control" name="PdMakingType" #PdMakingType="ngModel" [(ngModel)]="purchaseService.purchase.PdMakingType">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="projectinput1">Total Making</label>
+                                    <input type="text"  disabled  class="form-control" myNumberOnly name="PdTotalMaking" #PdTotalMaking="ngModel" [(ngModel)]="purchaseService.purchase.PdTotalMaking" >
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="projectinput1">Description</label>
+                                    <input type="textbox" class="form-control" name="PdDescription" #PdDescription="ngModel" [(ngModel)]="purchaseService.purchase.PdDescription">
+                                </div>
+                            </div>
+                            <div class="col">
+                                    <div class="form-group">
+                                        <br>
+                                        <label for="projectinput1">&nbsp;</label>
+                                        <button type="button" required  class="btn btn-info btn-sm" (click)="addProductDetail()" >Add</button>
+                                    </div>
+                                </div>
+                        </div>
+                               
+                               
+                        <div class="form-body" style="margin-top:2px">
+                            <div class="table-responsive verticalTable" >
+                                <div class = "outer">
+                                <table class="table  mb-0">
+                                    <thead class="bg-info text-white form-group  " >
+                                        <tr>
+                                            <th> Item </th>
+                                            <th>  Weight </th>
+                                            <th>Wastage %</th>
+                                            <th> Karrat</th>
+                                            <th> Purity/Kaat</th>
+                                            <th> Pure Weight</th>
+                                            <th> QTY</th>
+                                            <th> Item Rate</th>
+                                            <th> Gold Price</th>
+                                            <th> Making per Gram/Tola/Piece</th>
+                                            <th>Total Making</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of myArry"> 
+                                            <td class="filterable-cell">{{item.ItemName}}</td>
+                                            <td class="filterable-cell">{{item.Weight}}</td>
+                                            <td class="filterable-cell">{{item.WastePercent}}</td>
+                                            <td class="filterable-cell">{{item.Karat}}</td>
+                                            <td class="filterable-cell">{{item.Purity}}</td>
+                                            <td class="filterable-cell">{{item.PureWeight}}</td>
+                                            <td class="filterable-cell">{{item.Quantity}}</td>
+                                            <td class="filterable-cell">{{item.ItemRate}}</td>
+                                            <td class="filterable-cell">{{item.GoldPrice}}</td>
+                                            <td class="filterable-cell">{{item.MakingType}}</td>
+                                            <td class="filterable-cell">{{item.TotalMaking}}</td>
+                                        
+                                            <td class="filterable-cell">
+
+                                                <button type="button" class="btn btn-danger btn-sm" (click)="ondelete(item)">Delete</button>
+
+                                            </td>
+                                        </tr>
+                    
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            </div>
+
+
+                            </div>
+                            <br>
+
+                            <div class="row" style="border-top:1px solid rgb(58, 144, 179);border-right:1px solid rgb(58, 144, 179) ;border-left:1px solid rgb(58, 144, 179)">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Description</label>
+                                        <input type="text"   class="form-control" name="Description"  #Description="ngModel" [(ngModel)]="purchaseService.purchase.Description"> 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Total Qty</label>
+                                        <!-- <input type="text"   class="form-control" name="TotalQty" #TotalQty="ngModel" [(ngModel)]="purchaseService.purchase.TotalQty"> -->
+                                        <input type="text"   class="form-control" myNumberOnly  name="TotalQty"  #TotalQty="ngModel" [(ngModel)]="purchaseService.purchase.TotalQty"> 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Total Weight</label>
+                                        
+                                        <input type="text"  class="form-control" myNumberOnly name="TotalWeight" #TotalWeight="ngModel" [(ngModel)]="purchaseService.purchase.TotalWeight">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Total PWeight</label>
+                                        <input type="text"   class="form-control" myNumberOnly name="TotalPureWeight"  #TotalPureWeight="ngModel" [(ngModel)]="purchaseService.purchase.TotalPureWeight"> 
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Gold Price</label>
+                                        <input type="text"  class="form-control" myNumberOnly name="GoldPrice" #GoldPrice="ngModel" [(ngModel)]="purchaseService.purchase.GoldPrice">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Total Making</label>
+                                        <input type="text"  class="form-control" myNumberOnly name="TotalMaking" #TotalMaking="ngModel" [(ngModel)]="purchaseService.purchase.TotalMaking">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="projectinput1">Total Price</label>
+                                        <input type="text"  class="form-control" myNumberOnly name="TotalPrice" #TotalPrice="ngModel" [(ngModel)]="purchaseService.purchase.TotalPrice">
+                                    </div>
+                                </div>
+
+                            </div> 
+                        
+                            <div class="row" style="border-right:1px solid rgb(58, 144, 179) ;border-left:1px solid rgb(58, 144, 179)">
+                               
+                                <div class="col-sm-9">
+                                      
+                                        <app-ston-grid></app-ston-grid>
+                                </div>
+                            <div class="col-sm-3">
+                                <div class="card">
+                                  
+                                    <div class="card-body" >
+                                            <div class="row">
+                                                    <div class="col-sm-5">
+                                                            <label for="projectinput1">Total Weight</label>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                            <div class="form-group">  
+                                                                    <input type="text" myNumberOnly required id="projectinput1" class="form-control " name="description">
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                            
+                                    </div>
+                                  
+                                    <div class="card-body">
+                                            <div class="row">
+                                                    <div class="col-sm-5">
+                                                            <label for="projectinput1">Gold Payment</label>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                            <div class="form-group">  
+                                                                    <input type="text" (click)="goldDetailPop()" myNumberOnly  required  class="form-control" name="GoldPayment" #GoldPayment="ngModel" [(ngModel)]="purchaseService.purchase.GoldPayment">
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                  
+                                    <div class="card-body">
+                                            <div class="row">
+                                                    <div class="col-sm-5">
+                                                            <label for="projectinput1">Gold Balance</label>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                            <div class="form-group">  
+                                                                    <input type="text" myNumberOnly required id="projectinput1" class="form-control" name="description">
+                                                           
+                                                                </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+   
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                
+                
+                        
+                
+                        <button type="submit" class="btn btn-primary mt-3 " style="margin-right:1px" > Submit   <i class="fa fa-database position-right"></i></button>    
+                
+                
+                
+                    </form>
+                    </div>
+             
+                      
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <button type="button"  class="btn btn-primary btn-sm my_style" (click)="getvalue()">Add</button>
+        
+                        <button type="button"  class="btn btn-primary btn-sm my_style "  (click)="save()">Save</button>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+
+                        </div> -->
+
+                        <br>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+       
+</section>

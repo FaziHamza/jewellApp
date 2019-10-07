@@ -1,0 +1,102 @@
+<h5>Genral Account List {{messgae}}</h5>
+<!-- <table #dataTable class="display" id="dataTable1" style="width:100%">
+  <thead class="table-drak" style="height:30px;background:#3BAFDA;color:whitesmoke">
+    <tr style="height:20px">
+        <th>Sr # </th>
+        <th>Name </th>
+        <th>Phono</th>
+        <th>Mobile</th>
+        <th>Address </th>
+    
+    
+      
+        
+        
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>Faizan Hamza</td> 
+          <td>03232423461</td>
+          <td>041424343</td>
+          <td>Faisalaabad ,Pakistan </td>
+      </tr>
+      <tr>
+            <td>2</td>
+            <td>Aham Hamza</td> 
+            <td>0327632864</td>
+            <td>04143453454</td>
+            <td>Lahore ,Pakistan </td>
+        </tr>
+        <tr>
+                <td>3</td>
+                <td>usama</td> 
+                <td>0345446563</td>
+                <td>043424343</td>
+                <td>Islamad ,Pakistan </td>
+            </tr>
+            <tr>
+                    <td>4</td>
+                    <td>Farhan Ali</td> 
+                    <td>0356776784</td>
+                    <td>041809697</td>
+                    <td>Faisalaabad ,Pakistan </td>
+                </tr>
+                <tr>
+                        <td>5</td>
+                        <td>Faizan Hamza</td> 
+                        <td>03232423461</td>
+                        <td>041424343</td>
+                        <td>Faisalaabad ,Pakistan </td>
+                    </tr>
+                    <tr>
+                            <td>6</td>
+                            <td>Faizan Hamza</td> 
+                            <td>03232423461</td>
+                            <td>041424343</td>
+                            <td>Faisalaabad ,Pakistan </td>
+                        </tr>
+                        <tr>
+                                <td>7</td>
+                                <td>Faizan Hamza</td> 
+                                <td>03232423461</td>
+                                <td>041424343</td>
+                                <td>Faisalaabad ,Pakistan </td>
+                            </tr>
+
+      
+     
+  </tbody>
+
+</table> -->
+
+<table #dataTable class="display" id="dataTable1" style="width:100%">
+    <thead class="table-drak" style="height:30px;background:#3BAFDA;color:whitesmoke">
+    <tr style="height:20px">
+        <th>Account Id</th>
+        <th>Name </th>
+        <th>Refrence</th>
+        <th>Child Code</th>
+        <th>Address </th>
+        <th>Country </th>
+        <th>City </th>
+        <th>Action </th>
+        
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ac of accountService.list"  >
+        <td>{{ac.AccountMasterId}}</td>
+        <td>{{ac.Name}}</td>
+        <td>{{ac.Reference}}</td>
+        <td>{{ac.ChildCode}}</td>
+        <td>{{ac.Address}}</td>
+        <td>{{ac.Country}}</td>
+        <td>{{ac.City}}</td>
+        <td></td>
+      </tr>
+     
+    </tbody>
+  </table>

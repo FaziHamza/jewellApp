@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+  <div class="row match-height">
+      <div class="col">
+          <div class="card">
+              <div class="card-header">
+                  <!-- <h4 class="card-title" id="basic-layout-form">Project Info</h4> -->
+                  <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                      <ul class="list-inline mb-0">
+                          <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                          <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                          <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                          <li><a data-action="close"><i class="ft-x"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="card-content collapse show">
+                  <div class="card-body">
+                    <form class="form" #goldRateForm="ngForm" (ngSubmit)="OnSubmit(goldRateForm)">
+                          <div class="form-body">
+                              <!-- <input  name="GoldRateId" #GoldRateId="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.GoldRateId" class="form-control"    > -->
+                            
+
+                              <h4 class="form-section"><i class="ft-user"></i> Gold Rate</h4>
+                            <div class="row">
+                            <div class="col">
+                              <div class="row">
+                                <div class="col">
+                                  <label>24 Tola </label>
+                                  <input  (change)="UpdateTolaRate($event)" autofocus   name="K24Tola" #K24Tola="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K24Tola"  class="form-control"    >
+                                </div>
+                             
+                                <div class="col">
+                                    <label>24 G</label>
+                                  <input  name="K24" #K24="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K24" class="form-control"    >
+                                </div>
+
+                              </div>
+                              <div class="row">
+                                  <div class="col">
+                                    <label>22 Tola</label>
+                                    <input name="K22Tola" #K22Tola="ngModel" class="form-control" required  myNumberOnly  [(ngModel)]="goldRate.K22Tola"   >
+                                  </div>
+                               
+                                  <div class="col">
+                                      <label>22 G</label>
+                                    <input name="K22" #K22="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K22"   class="form-control"    >
+                                  </div>
+  
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                      <label>21 Tola</label>
+                                      <input name="K21Tola" #K21Tola="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K21Tola"  class="form-control"   >
+                                    </div>
+                                 
+                                    <div class="col">
+                                        <label>21 G</label>
+                                      <input name="K21" #K21="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K21"  class="form-control"   >
+                                    </div>
+    
+                                  </div>
+                                  <div class="row">
+                                      <div class="col">
+                                        <label>18 Tola</label>
+                                        <input name="K18Tola" #K18Tola="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K18Tola"  class="form-control"   >
+                                      </div>
+                                   
+                                      <div class="col">
+                                          <label>18 G</label>
+                                        <input name="K18" #K18="ngModel" required  myNumberOnly  [(ngModel)]="goldRate.K18"  class="form-control"   >
+                                      </div>
+      
+                                    </div>
+                                    <div class="row mt-1">
+                                      <div class="col">
+                                          <input type="submit" class="btn btn-info" [disabled]="!goldRateForm.valid" value="Submit">
+                                          <input type="button" class="btn btn-info"  value="Reset" (click)="resetForm()">
+                                        
+                                      </div>
+                                     
+                                      <div class="col"></div>
+
+                                    </div>
+                       
+                            </div>
+                            
+                            <div class="col">
+                              <app-gold-rate-list></app-gold-rate-list>
+                            </div>
+
+                            </div>
+                         
+              </div></form>
+          </div>
+      </div>
+
+      
+  </div>
+  </div></div></section>

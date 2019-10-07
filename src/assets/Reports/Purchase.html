@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <!-- <script src="http://cdn.datatables.net/responsive/1.0.1/js/dataTables.responsive.min.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+
+        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+        <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"/> 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/> 
+        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+        
+      
+      <style>
+        td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+    tr.shown td.details-control {
+        background: url('http://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+    }
+    .bg-tableheader{
+        background: rgb(39, 162, 207);color: white;
+    }
+    .bg-childtableheader{
+        background-color: rgb(113, 114, 114);color:white;
+    }
+    @media print
+    {
+        #non-printable { display: none; }
+        #non-printable1 { display: none; }
+        #example_length { display: none; }
+        #example_filter{display: none;}
+        #example_info{display: none;}
+        #example_paginate{display: none}
+        .bg-tableheader{color:gray}
+        .bg-childtableheader{color: rgb(120, 123, 124);background-color: rgb(113, 114, 114);}
+        #printable { display: block;background-color: rgb(113, 114, 114); }
+    }
+    </style>
+
+	
+</head>
+<body>
+        <div class="container-fluid" >
+          <div class="row mt-3">
+           <div class="col-md-2"></div>
+           <div class="col-md-8 pull-right">
+                <h2 class="text-center" >Purchase Report</h2> 
+                    <br>
+                <div class="input-group input-daterange" id="non-printable">
+                   
+                    <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd"
+                        placeholder="FromDate:">
+        
+                    <div class="input-group-addon">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        
+                    <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd"
+                        placeholder="ToDate:">
+        
+                </div>
+            </div>
+           <div class="col-md-2"></div>
+          </div>
+            </div>
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-md-12">
+
+  <div class="btn-group mb-1" role="group" aria-label="Basic example" id="non-printable1">
+        <button type="button" id="Collaps1" class="btn btn-secondary">Collapse</button>
+        <button type="button" class="btn btn-secondary bg-tableheader"  onclick="window.print()"> Print </button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.reload()">Refresh</button>
+      </div>
+       <div class="table-responsive">
+            <table id="example" class="table table-hover" style="width:100%">
+                    <thead class="bg-tableheader">
+                      <tr>
+                          <th></th>
+                          <th>PurchaseNo</th>
+                          <th>Party</th>
+                          <th>Date</th>
+                          <th>Weight</th>
+                          <th>GoldRate</th>
+                          <th>TotalMaking</th>
+                      </tr>
+                    </thead>
+                   
+                </table>
+       </div>
+        </div>
+    </div>
+</div>
+<script>
+/* Formatting function for row details - modify as you need */
+var html ='';
+    var pId =0;
+        function format ( dataSource ) {
+        //   alert(pId);
+            // console.log(dataSource[0])
+            html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+                $.map(dataSource,function(values,keys){
+                   
+                    $.map(values,function(value,key){
+// console.log(value);
+                        $.map(value,function(val,ke){
+                            
+                            if(ke == 'PurchaseDetails'){
+
+                               $.map(val,function(val1,ke1)
+                                 {
+                                     html += '<tr style="heigh:90px">';
+                                                $.map(val1,function(va,ky)
+                                                {
+                                                    if (ke1 == 0 && pId == val1.PurchaseId)
+                                                    html += '<th class="bg-childtableheader">' + ky + '</th>';      
+                                                })
+                                                html += '</tr> <tr>';
+                                                $.map(val1, function (va, ky) {
+                                                   if(pId== val1.PurchaseId)
+                                      
+                                                    html +=
+                                                        '<td>' + va + '</td>';
+                                                })
+                                                html +='</tr></tr>';
+                                            });
+                            }
+                               if (ke == 'PurchaseStoneDetails') {
+                                $.map(val, function (val1, ke1) {
+                                    html += '<tr>';
+                                    $.map(val1, function (va, ky) {
+                                        if (ke1 == 0 && pId == val1.PurchaseId)
+                                            html += '<th class="bg-childtableheader">' + ky + '</th>';
+                                    })
+                                    html += '</tr> <tr>';
+                                    $.map(val1, function (va, ky) {
+                                        if (pId == val1.PurchaseId)
+
+                                            html +=
+                                                '<td>' + va + '</td>';
+                                    })
+                                    html += '</tr></tr>';
+                                });
+                            }
+                    })
+                        
+                    })
+                })
+            // $.map(dataSource,function(value,key)
+            // {   
+            //     $.map(value,function(va,ke)
+            //     {
+            //      html += '<tr>';
+            //         $.map(va,function(v,k)
+            //         {   
+            //             if(ke==0)
+            //             html +='<th>' + k+'</th>';                
+            //         })
+            //         html += '</tr> <tr>';
+            //         $.map(va,function(v,k)
+            //         {   
+            //         html +=
+            //         '<td>' + v +'</td>';
+
+            //         })
+            //     })
+            //     html +='</tr></tr>';
+            // });
+return html += '</table>'; } 
+$(document).ready(function() {
+    var table;
+    var getData=[];
+    $('.input-daterange input').each(function () {
+        $(this).datepicker();
+    });
+    $.ajax({
+                type:'GET',
+                url: 'http://localhost:35257/api/purchaseList',
+                dataType :'JSON',
+                success: function(html){
+                    getData.push(html);
+
+                    table = $('#example').DataTable({
+                  
+                         data : html,
+                         
+                         "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "PurchaseId" },
+            { "data": "AccountNo" },
+            // { "data": "PurchaseDate" },
+            {
+              "data": "PurchaseDate",
+                "render": function (data) {
+                   var d = data.split('T')[0];
+                    return d;
+                }
+            },
+            // {
+            //   "data": "PurchaseDate",
+            //     "render": function (data) {
+            //        var d = data.split('T')[0];
+            //         return d.split('-')[2]+'-'+d.split('-')[1]+'-'+d.split('-')[0];
+            //     }
+            // },
+            // {
+            //   "data": "PurchaseDate",
+            //     "render": function (data) {
+            //         var date = new Date(data);
+            //         var month = date.getMonth() + 1;
+            //         return date.getFullYear() + "-" + month + "-" + date.getDate();
+            //     }
+            // },
+            // {'data':null,
+            //         "render": function(data,type,row) {
+            //             var date1 = new Date(data.PurchaseDate);
+            //             var month = date1.getMonth() + 1;
+            //             return  date1.getFullYear() + "-" + month + "-" + date1.getDate(); }},
+            { "data": "TotalWeight" },
+            { "data": "GoldRate" },
+            { "data": "TotalMaking" }
+        ],
+        "order": [[1, 'asc']]
+    } );}
+            });
+
+            $('#example').on('click', 'td.details-control', function () {
+          var tr = $(this).closest('tr');
+             pId=  tr.find('td').eq(1).text();
+          var row = table.row(tr);
+          if (row.child.isShown()) {
+              // This row is already open - close it
+              row.child.hide();
+    
+              html ='';
+              tr.removeClass('shown');
+          } else {
+              // Open this row
+            //   row.child(format(getData1)).show();
+              row.child(format(getData)).show();
+              tr.addClass('shown');
+          }
+      });
+      $("#Collaps1").on("click", function () {
+
+        //Open all of the child rows
+        $("td.details-control").click();
+
+    })
+  });
+  $.fn.dataTable.ext.search.push(
+function(settings, data, dataIndex) {
+var min = $('#min-date').val();
+var max = $('#max-date').val();
+
+var startDate = data[3].split('T')[0];//var startDate = new Date(data[3]);
+// alert(startDate);
+// alert(min);
+// alert(max);
+
+  if (min == "" && max == "") { return true; }
+  if (min == "" && startDate <= max) { return true;}
+  if(startDate >= min && max == "") {return true;}
+  if (startDate >= min && startDate <= max) { return true; }
+  return false;
+}
+);
+$('#min-date , #max-date').change(function() {
+
+$('#example').DataTable().draw();
+ });
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- <app-navbar></app-navbar> -->
+<form class="form" #SubItemForm="ngForm" (ngSubmit)="OnSubmit(SubItemForm)">
+    <div class="form-body">
+
+        <input type="hidden" name="SubItemId" #SubItemId="ngModel"  [(ngModel)]="subItemService.subItem.SubItemId" class="form-control">
+
+        <h4 class="form-section"><i class="ft-user"></i>  Sub Item </h4>
+        <div class="row">
+            <div class="col">
+                <label for="inputEmail4"> Item</label>
+                <!-- <select class="form-control"   name="Items" #Items="ngModel" required [(ngModel)]="subItemService.subItem.Items" [ngModelOptions]="{standalone: true}" class="form-control">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let item of subItemService.item" [ngValue]="item">{{item.ItemName}}</option>
+
+                </select> -->
+                <select class="form-control"  name="ItemId" #ItemId="ngModel" required [(ngModel)]="subItemService.subItem.ItemId" >
+                    <option *ngFor="let item of subItemService.item" [value]="item | json"> {{ item.ItemName }} </option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="projectinput1">Sub Item Name</label>
+                    <input type="text" name="SubItemName" #SubItemName="ngModel" required [(ngModel)]="subItemService.subItem.SubItemName" class="form-control">
+            </div>
+            <div class="col">
+                <label for="projectinput1">Abrivation.</label>
+                    <input type="text" name="Abrivation" #Abrivation="ngModel" required [(ngModel)]="subItemService.subItem.Abrivation" class="form-control">
+            </div>
+       
+            <div class="col-2">
+                <div class="fom-group">
+                    <label>  &nbsp; </label>
+                    <div class="mt-0"></div>
+                    <button type="submit" class="form-control btn btn-primary " style="margin-right:1px" [disabled]="!SubItemForm.valid"> Submit   <i class="fa fa-database position-right"></i></button>
+                    <!-- <button class="btn btn-info" (click)="savaItems()">Clcik</button> -->
+                    <!-- <button class="btn btn-info" (click)=" onClose()">Close</button> -->
+
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+<span>.</span>
+<app-sub-item-list></app-sub-item-list>

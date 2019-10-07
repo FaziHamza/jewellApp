@@ -1,0 +1,28 @@
+            
+                                    <div class="form-body">
+                                      <div class="table-responsive">
+                                          <table class="table mb-0">
+                                              <thead class="bg-info text-white form-group">
+                                              <tr>
+                                                  <th> Id</th>
+                                                  <th>Code </th>
+                                                  <th>Description</th>
+                                                  <th> </th>
+                                          
+                                              </tr>
+                                              </thead>
+                                          <tbody>
+                                              <tr  *ngFor="let ac of cutcategorymasterservice.list">
+                                                  <td>{{ac.CustomerCategoryMasterId}}</td>
+                                                <td >{{ac.Status}}</td>
+                                                <td>{{ac.Description}}</td>
+                                              <td>
+                                                <button class="btn btn-ifno btn-sm" type="button" (click)="edit(ac)" >Eidt</button>
+                                                <button class="btn btn-danger btn-sm" type="button" (click)="delete(ac.CustomerCategoryMasterId)" >Delete</button>
+                                                </td>
+                                          </tr>
+                                          </tbody>
+                                          </table>
+                                          </div>
+                              
+                                </div>

@@ -1,0 +1,45 @@
+<div class="form-body">
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead class="bg-info text-white form-group">
+            <tr>
+
+                <th>Rate Code </th>
+                <th>Typemaster Code </th>
+                <th>ConvFact</th>
+                <th>CurrencyRate</th>
+                <th>Description</th>
+
+  
+                <th> </th>
+        
+            </tr>
+            </thead>
+        <tbody>
+            <tr  *ngFor="let ac of ratemasterservice.list">
+      
+            <td>{{ac.RateMasters.RateCode}}</td>
+            <td>{{ac.TypeMasters.TypeCode}}</td>
+            <td>{{ac.RateMasters.ConvFact}}</td>
+            <td>{{ac.RateMasters.CurrencyRate}}</td>
+            <td>{{ac.RateMasters.Description}}</td>
+            
+            <td>
+              <button class="btn btn-ifno btn-sm" type="button" (click)="edit(ac.RateMasters)" >Eidt</button>
+              <button class="btn btn-danger btn-sm" type="button" (click)="delete(ac.RateMasters.RateMasterId)" >Delete</button>
+              
+              </td>
+          
+       
+        </tr>
+    
+        
+        </tbody>
+        </table>
+        </div>
+  
+  
+  
+  
+  
+  </div>

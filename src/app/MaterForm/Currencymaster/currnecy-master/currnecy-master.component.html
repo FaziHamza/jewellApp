@@ -1,0 +1,76 @@
+
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+  <div class="row match-height">
+      <div class="col">
+          <div class="card">
+              <div class="card-header">
+                  <!-- <h4 class="card-title" id="basic-layout-form">Project Info</h4> -->
+                  <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                      <ul class="list-inline mb-0">
+                          <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                          <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                          <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                          <li><a data-action="close"><i class="ft-x"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="card-content collapse show">
+                  <div class="card-body">
+                    <form class="form" #currencyType="ngForm" (ngSubmit)="onSubmit(currencyType)">
+                      <input type="hidden" name="CurrencyId" #CurrencyId="ngModel" [(ngModel)]="currencyTypeService.currencyType.CurrencyId">
+   
+                      <div class="form-body">
+                              <h4 class="form-section"><i class="ft-user"></i> Currency Master</h4>
+                              <div class="row">
+                                      <div class="col">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Currency Code</label>
+                                                <input type="text" name="Code" #Code="ngModel" required [(ngModel)]="currencyTypeService.currencyType.Code"  class="form-control" >
+                                              </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                  <label for="projectinput1">Description</label>
+                                                 <select class="form-control" name ="Type" #Type="ngModel" required [(ngModel)]="currencyTypeService.currencyType.Type"   >
+                                                   <option>Mattel </option>
+                                                   <option>Currency</option>
+                                                   <option>Card</option>
+                                                   <option>Cheque</option>
+
+                                                 </select>
+                                                </div>
+                                        </div>
+                                            <div class="col">
+                                                  <div class="form-group">
+                                                    <label for="projectinput1">Description</label>
+                                                    <input type="textbox" name="Description" required #Description="ngModel" [(ngModel)]="currencyTypeService.currencyType.Description"  class="form-control" >
+                                                  </div>
+                                          </div>
+                                          <div class="col">
+                             <label>&nbsp;</label>           
+<div class="mt-0">
+  <button type="submit" class="btn btn-primary " style="margin-right:1px" [disabled]="!currencyType.valid" > Submit   <i class="fa fa-database position-right"></i></button>
+
+</div>            
+                                            </div>
+                                      
+                                    
+                                        
+                                  </div>
+                           
+                                                                             
+                      
+                                             
+                      <CurrnecymasterTable></CurrnecymasterTable>
+                                  
+                      
+                  </div></form>
+              </div>
+          </div>
+      </div>
+
+      
+  </div>
+  </div></section>

@@ -1,0 +1,105 @@
+/* .row
+{
+  padding:0px; 
+  margin: 0px;
+} */
+/* .col
+{
+  margin-top:0px;
+  padding-top:0px;
+  padding-bottom:0px; 
+  height:60px;
+}  */
+.form-control
+{
+  height:22px;
+  padding:0px;
+}
+
+/* .col-md-8
+{
+  position: absolute;
+  margin-top: 420px;
+} */
+.btn
+{
+    margin-top: 20px;
+}
+label {
+  font-size: 14px;
+  margin-bottom:3px ;
+}
+.my_style
+{
+  margin-left: 30px;
+}
+.input
+{
+  border-color: red;
+}
+
+
+
+fieldset.radiogroup legend {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  margin-left: 20px;
+  font-size: 100%;
+  color: black;
+}
+.image-wrapper li {
+  width: 109px;
+    height: 110px;
+  margin: 10px;
+  float: left;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+  background: #fff;
+  margin-bottom: 25px;
+}
+.browse-btn {
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0.5rem;
+  position: relative;
+  width: 109px;
+  height: 110px;
+
+  border:1px solid #ccc;
+  text-align: center;
+}
+li {
+  list-style-type: none;
+}
+.browse-image {
+  position: relative;
+  top: 25%;
+}
+.product-image{
+  width: 83%;
+  height: 82px;
+  margin-top: 6px;
+}
+a.delete-btn {
+  color: #f00;
+  cursor: pointer;
+}
+#cameraImg {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  width: 109px;
+    height: 110px;
+  top:0;
+  bottom:0;
+  left:0;
+  right: 0;
+  z-index: 3;
+}
+.error {
+  color: #ff0000;
+}

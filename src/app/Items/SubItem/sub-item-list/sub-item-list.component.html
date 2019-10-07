@@ -1,0 +1,47 @@
+
+
+  <div class="row mt-0">
+      <div class="col-12">
+        <div class="card">
+     
+          <div class="card-content">
+            <div class="card-body card-dashboard">
+            </div>
+            <div class="table-responsive">
+              <table class="table mb-0">
+                <thead class="bg-info text-white">
+                  <tr>
+                    <th> Item Name </th>
+                    <th> Sub Item Name </th>
+                    <th>Abrivation</th>
+                    <th></th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  *ngFor="let ac of subItemService.listVm">
+            
+                  <td>{{ac.Items.ItemName}}</td>
+                  <td>{{ac.SubItems.SubItemName}}</td>
+                  <td>{{ac.SubItems.Abrivation}}</td>
+       
+                  
+                  <td>
+                    <button class="btn btn-info btn-sm" type="button" (click)="edit(ac.SubItems)" >Eidt</button>
+                    <button class="btn btn-danger btn-sm" type="button" (click)="delete(ac.SubItems.SubItemId)" >Delete</button>
+                    
+                    </td>
+                
+             
+              </tr>
+          
+              
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  

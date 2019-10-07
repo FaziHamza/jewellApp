@@ -1,0 +1,44 @@
+<div class="form-body">
+  <div class="table-responsive">
+      <table class="table mb-0">
+          <thead class="bg-info text-white form-group">
+          <tr>
+
+              <th>Name  </th>
+              <th>Head  </th>
+              <th>Created on </th>
+
+
+              <th> </th>
+      
+          </tr>
+          </thead>
+      <tbody>
+          <tr  *ngFor="let ac of accountTypeService.accountByTypeList">
+    
+          <td>{{ac.AccountType.Name}}</td>
+          <td>{{ac.HeadAccount.HeadName}}</td>
+          <td>{{ac.AccountType.CreatedOn}}</td>
+
+
+
+
+          <td>
+            <button class="btn btn-ifno btn-sm" type="button">Eidt</button>
+            <button class="btn btn-danger btn-sm" type="button">Delete</button>
+            
+            </td>
+        
+     
+      </tr>
+  
+      
+      </tbody>
+      </table>
+      </div>
+
+
+
+
+
+</div>

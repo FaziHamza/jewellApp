@@ -1,0 +1,33 @@
+<!-- <app-navbar></app-navbar> -->
+<form class="form" #ItemForm="ngForm" (ngSubmit)="onSubmit(ItemForm)">
+    <div class="form-body">
+
+        <h4 class="form-section"><i class="ft-user"></i>  Item </h4>
+        <div class="row">
+            <div class="col">
+                <label>Item Name </label>
+                <input type="text" class="form-control" required name="ItemName" #ItemName="ngModel" [(ngModel)]="items.ItemName">
+            </div>
+            <div class="col">
+                <label>Abrivation </label>
+                <input type="text" class="form-control" required name="Abrivation" #Abrivation="ngModel" [(ngModel)]="items.Abrivation">
+            </div>
+
+            <div class="col-2">
+                <div class="fom-group">
+                    <label>  &nbsp; </label>
+                    <div class="mt-0"></div>
+                    <button type="submit" class="form-control btn btn-primary " style="margin-right:1px" [disabled]="!ItemForm.valid"> Submit   <i class="fa fa-database position-right"></i></button>
+                    <!-- <button class="btn btn-info" (click)="savaItems()">Clcik</button> -->
+                    <!-- <button class="btn btn-info" (click)=" onClose()">Close</button> -->
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<app-item-list></app-item-list>
+

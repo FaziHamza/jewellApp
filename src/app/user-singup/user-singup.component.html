@@ -1,0 +1,152 @@
+<!--#region chkeform -->
+<style>
+  li{list-style: none;}
+.focus{outline:1px dotted rgba(0,0,0,0.5) !important}
+.colors{clear:both;padding:24px 0 9px;}
+.skin-line .colors{padding-top:28px}
+.colors strong{float:left;line-height:20px;margin-right:20px}
+.colors li{position:relative;float:left;width:16px;height:16px;margin:2px 1px 0 0;background:#000;cursor:pointer;filter:alpha(opacity=50);opacity:.5;-webkit-transition:opacity .2s;-moz-transition:opacity .2s;-ms-transition:opacity .2s;-o-transition:opacity .2s;transition:opacity .2s;}
+.colors li:hover{filter:alpha(opacity=100);opacity:1}
+.colors li.active{height:20px;margin-top:0;filter:alpha(opacity=75);opacity:.75}
+.colors li.red{background:#d54e21}
+.colors li.green{background:#78a300}
+.colors li.blue{background:#0e76a8}
+.colors li.aero{background:#9cc2cb}
+.colors li.grey{background:#73716e}
+.colors li.orange{background:#f70}
+.colors li.yellow{background:#fc0}
+.colors li.pink{background:#ff66b5}
+.colors li.purple{background:#6a5a8c}
+.skin-square .colors li.red{background:#e56c69}
+.skin-square .colors li.green{background:#1b7e5a}
+.skin-square .colors li.blue{background:#2489c5}
+.skin-square .colors li.aero{background:#9cc2cb}
+.skin-square .colors li.grey{background:#73716e}
+.skin-square .colors li.yellow{background:#fc3}
+.skin-square .colors li.pink{background:#a77a94}
+.skin-square .colors li.purple{background:#6a5a8c}
+.skin-square .colors li.orange{background:#f70}
+.skin-flat .colors li.red{background:#ec7063}
+.skin-flat .colors li.green{background:#1abc9c}
+.skin-flat .colors li.blue{background:#3498db}
+.skin-flat .colors li.grey{background:#95a5a6}
+.skin-flat .colors li.orange{background:#f39c12}
+.skin-flat .colors li.yellow{background:#f1c40f}
+.skin-flat .colors li.pink{background:#af7ac5}
+.skin-flat .colors li.purple{background:#8677a7}
+.skin-line .colors li.yellow{background:#ffc414}
+</style>
+<!-- #endregion -->
+<!-- #region login2 -->
+<style>
+  .form-simple input[type='text']
+{
+    margin-bottom: -1px;
+
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-simple input[type='mail']
+{
+    margin-bottom: -1px;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-simple input[type='password']
+{
+    margin-bottom: 10px;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.help-block ul
+{
+    margin: 0  !important;
+    padding: 0 !important;
+}
+.help-block ul li
+{
+    list-style: none;
+}
+</style>
+<!-- #endregion -->
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-dark navbar-border navbar-brand-center">
+  <div class="navbar-wrapper">
+   <h1 class="text-center "> <a href="#">Bringo Tech</a></h1>
+ 
+  </div>
+</nav>
+<br>
+<br>
+
+<br>
+<div class="app-content container center-layout mt-2">
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body"><section class="flexbox-container">
+<div class="col-12 d-flex align-items-center justify-content-center">
+    <div class="col-md-4 col-10 box-shadow-2 p-0">
+  <div class="card border-grey border-lighten-3 px-2 py-2 m-0">
+    <div class="card-header border-0">
+      <div class="card-title text-center">
+        <img src="/assets/img/logo-dark.png" alt="logo">
+      </div>
+      <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>Create Account</span></h6>
+    </div>
+    <div class="card-content">	
+      <div class="card-body">
+        <form class="form-horizontal form-simple" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
+          <fieldset class="form-group position-relative has-icon-left mb-1">
+            <input type="text" class="form-control form-control-lg input-lg" required name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required placeholder="User Name">
+            <div class="form-control-position">
+                <i class="fa fa-user"></i>
+            </div>
+          </fieldset>
+          <fieldset class="form-group position-relative has-icon-left mb-1">
+            <input type="email" class="form-control form-control-lg input-lg" required name="Email" #Email="ngModel" [(ngModel)]="user.Email" [pattern]="emailPattern" id="user-email" placeholder="Your Email Address">
+            <div class="form-control-position">
+                <i class="fa fa-envelope-open"></i>
+            </div>
+          </fieldset>
+          <fieldset class="form-group position-relative has-icon-left mb-1">
+              <input type="text" class="form-control form-control-lg input-lg" required name="FirstName" #FirstName="ngModel" [(ngModel)]="user.FirstName"  placeholder="Your FirstName">
+              <div class="form-control-position">
+                  <i class="fa fa-user-tie"></i>
+              </div>
+            </fieldset>
+          <fieldset class="form-group position-relative has-icon-left">
+            <input type="password" class="form-control form-control-lg input-lg" required name="Password" #Password="ngModel" [(ngModel)]="user.Password" required minlength="3" placeholder="Enter Password" >
+            <div class="form-control-position">
+                <i class="fa fa-key"></i>
+            </div>
+          </fieldset>
+          <fieldset class="form-group position-relative has-icon-left">
+            <div class="row" *ngIf="roles">
+              <ul>
+                <li *ngFor="let item of roles;let i = index">
+                  <input type="checkbox" [id]="'roles-'+i" value="{{item.Id}}" [checked]="item.selected"  (change)="updateSelectedRoles(i)">
+                  <label [for]="'roles-'+i">{{item.Name}}</label>
+                </li>
+              </ul>
+            </div>
+            
+          </fieldset>
+          <button type="submit" [disabled]="!userRegistrationForm.valid" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Register</button>
+        </form>
+      </div>
+      <p class="text-center">Already have an account ? <a  routerLink='/login' class="card-link">Login</a></p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+    </div>
+  </div>
+</div>

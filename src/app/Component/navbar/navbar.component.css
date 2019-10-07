@@ -1,0 +1,16 @@
+.navbar-light {
+    background: #2c4ff7eb !important;
+   
+}
+.navbar-light .navbar-brand {
+    color: rgb(252, 252, 252);
+}
+.navbar-nav li a{
+    color: rgb(252, 252, 252);
+}
+.navbar-nav li a :hover{
+    color: #2c4ff7eb;
+}
+.navbar-nav li ul li a :hover{
+    color: #2c4ff7eb;
+}

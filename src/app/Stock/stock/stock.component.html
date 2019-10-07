@@ -1,0 +1,403 @@
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+    <div class="row " style="width: 101%;">
+        <div class="col">
+            <div class="card " style="height:100%" >
+        
+                <div class="card-content collapse show"style="padding-bottom:0px;">
+                    <div class="card-body">
+
+  <form class="form" #stockForm="ngForm" (ngSubmit)="OnSubmit(stockForm)">
+
+
+    <div class="row">
+        <div class="col"></div>
+      <div class="col-6 " style="border: 1px solid rgb(145, 150, 154)">
+   
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" checked type="radio" name="itemtype" (click)= "checkItemTypeStatus($event)" value="Gold">
+          <label class="form-check-label" for="Gold">Gold</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="itemtype" (click)= "checkItemTypeStatus($event)" value="Diamond">
+          <label class="form-check-label" for="Diamond">Diamond </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="itemtype"  (click)= "checkItemTypeStatus($event)" value="Silver">
+            <label class="form-check-label" for="Silver">Silver </label>
+          </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="itemtype" (click)= "checkItemTypeStatus($event)" value="Pladium">
+            <label class="form-check-label" for="Pladium">Pladium</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="itemtype" (click)= "checkItemTypeStatus($event)"  value="Plantium">
+            <label class="form-check-label" for="Plantium">Plantium</label>
+          </div>
+      
+      </div>
+      <div class="col-4 " style="border: 1px solid rgb(145, 150, 154)">
+        
+          <div class="form-check form-check-inline">
+           
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Stock</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Order</label>
+            </div>
+
+        
+     
+      </div>
+      <div class="col"></div>
+    </div>
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col p-2 m-1" style="border: 1px solid rgb(145, 150, 154)">
+        <select class="form-" style="width: 100%">
+          <option>12</option>
+          <option>12</option>
+          <option>12</option>
+          
+        </select>
+        <div  class="row">
+          <div  class="col-sm-6">
+              <div  class="form-group">
+                  <label  for="projectinput1">Karat</label>
+                  <input  class="form-control " >
+              </div>
+          </div>
+          <div  class="col-sm-3">
+              <div  class="form-group">
+                  <label  for="projectinput1">Qty</label>
+                  <input  class="form-control " >
+              </div>
+          </div>
+          <div  class="col-sm-3">
+              <div  class="form-group">
+                  <label  for="projectinput1">Pieces</label>
+                  <input  class="form-control " >
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="projectinput1">Tag Number</label>
+            <input type="text" class="form-control"  required>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-primary btn-sm ">Auto</button>
+        </div>
+        <div class="col-sm-3">
+          <button type="button" class="btn btn-primary btn-sm ">Manual</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="projectinput1">Design</label>
+            <input type="text" class="form-control" required>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-primary btn-sm ">+</button>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="projectinput1">Size</label>
+            <input type="text" class="form-control"  required>
+          </div>
+        </div>
+      </div>
+   
+      <!-- row numbr 7 -->
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="projectinput1">Description</label>
+            <input type="text" class="form-control" required>
+          </div>
+        </div>
+      </div>
+      </div>
+      <!-- Gold Diammnd etc etc -->
+      <div class="col p-2 m-1" *ngIf="isShow!=true" style="border: 1px solid rgb(145, 150, 154)">
+          <!-- <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="projectinput1">Avaliable weight </label>
+                  <input style="margin-right:0px;" type="text" class="form-control" 
+                    required>
+                </div>
+              </div>
+           
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="projectinput1">Total Quantity </label>
+                  <input type="text" class="form-control"  required>
+                </div>
+              </div>
+        
+            </div> -->
+        <div class="row">
+          <div class="col-sm-9">
+            <div class="form-group">
+              <label for="projectinput1">Total Net Weight</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-primary btn-sm ">Get Weight</button>
+          </div>
+        </div>
+        <!-- row mumber 2 -->
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Waste%</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Waste in Gm</label>
+              <input type="text" (click)="goldDetailPop()" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Total Weight</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+        </div>
+        <!-- row mumber 3 -->
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label for="projectinput1">Ratti In</label>
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Puren Weight</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+        </div>
+        <!-- row mumber 4 -->
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Making/Gm</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Total Making</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Making Type</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+        </div>
+        <!-- row mumber 5 -->
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="projectinput1">Lacquer/Gm</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="projectinput1">Lacquer</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="form-group">
+                <label for="projectinput1">Item Cost</label>
+                <input type="text" class="form-control"  required>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="projectinput1">Item Price</label>
+                <input type="text" class="form-control"  required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- row mumber 6 -->
+        <!-- <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="projectinput1">Item Cost</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="projectinput1">Item Price</label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+        </div>
+      </div> -->
+            <!-- // Silver Panel -->
+        <div class="col p-2 m-1" *ngIf="isShow" style="border: 1px solid rgb(145, 150, 154)">
+        <div class="row">
+          <div class="col-sm-9">
+            <div class="form-group">
+              <label for="projectinput1">Silver </label>
+              <input type="text" class="form-control"  required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-primary btn-sm ">Get Weight</button>
+          </div>
+        </div>
+        <!-- row mumber 2 -->
+        <div class="row">
+            <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Price A</label>
+             
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+             
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        <!-- row mumber 3 -->
+        <div class="row">
+            <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Rate D</label>
+             
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+             
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        <!-- row mumber 4 -->
+        <div class="row">
+            <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Price D</label>
+             
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+             
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        <!-- row mumber 5 -->
+        <div class="row">
+            <div class="col-sm-1"></div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="projectinput1">Sale Price </label>
+             
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+             
+              <input type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+    
+      </div>
+
+
+      <div class="col p-2 m-1" style="border-left: 1px solid rgb(145, 150, 154);border-right: 1px solid rgb(145, 150, 154);border-top: 1px solid rgb(145, 150, 154) ">
+      <div class="row h-100">
+         <div class="col">
+            <select class="form-control">
+                <option>123</option>
+                <option>12</option>
+                <option>12</option>
+                
+              </select>
+              <div class="">
+                  <img src="http://jewelrates.com/Images/CompanyLogos/logo-nb.png" class="img-fluid "/>
+                </div>
+         </div>
+        
+      </div>
+      </div>
+
+    </div>
+  <!-- // add grid  -->
+
+
+  </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8 ">
+            
+         <app-stock-stonegrid></app-stock-stonegrid>
+          </div>
+        <div class="col-4  " style="border-left: 1px solid rgb(145, 150, 154);border-right: 1px solid rgb(145, 150, 154);border-bottom: 1px solid rgb(145, 150, 154) ">
+      <div class="row">
+         <div class="col">
+          <div class="form-group">
+            <div class="upload-image">
+              <div #image class="image-wrapper"></div>
+              <div class="browse-btn" *ngIf="isPicBoxShow==true">
+                <input type="file" name="cameraImg" id="cameraImg" (change)="onSelectedFile($event)" />
+                <div class="browse-image">
+                  <img src="assets/img/Camera.png" width="60px" />
+                  <!-- <p>Browse image</p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+      </div>
+        </div>
+      </div>
+</div>
+         
+  <input type="submit" class="btn btn-info" value="Submit">
+  </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 
+<ul>
+  <li *ngFor="let item of imageArray">{{item.ImageName}}</li>
+</ul> -->
+</section>

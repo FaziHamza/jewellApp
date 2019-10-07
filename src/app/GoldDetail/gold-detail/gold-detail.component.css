@@ -1,0 +1,27 @@
+.bg-info {
+    background-color: #007bff!important;
+}
+ .row
+{
+  padding:0px; 
+  margin: 0px;
+}
+ .col
+{
+  margin-top:0px;
+  padding-top:0px;
+  padding-bottom:0px; 
+
+} 
+.form-row{
+    padding: 0px;
+    height: 52px;
+}
+ .form-control
+{
+  height:22px;
+  padding:0px;
+}
+select.form-control:not([size]):not([multiple]) {
+    height: 23px;
+}

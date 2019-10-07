@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+  <div class="row match-height">
+      <div class="col">
+          <div class="card">
+              <div class="card-header">
+                  <!-- <h4 class="card-title" id="basic-layout-form">Project Info</h4> -->
+                  <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                      <ul class="list-inline mb-0">
+                          <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                          <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                          <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                          <li><a data-action="close"><i class="ft-x"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="card-content collapse show">
+                  <div class="card-body">
+                      <form class="form" #ratemaster="ngForm" (ngSubmit)="OnSubmit(ratemaster)">
+                          <div class="form-body">
+                              
+                              <input type="hidden" type="text" name="RateMasterId" #RateMasterId="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.RateMasterId"  class="form-control" >
+
+                              <h4 class="form-section"><i class="ft-user"></i> Rate Master</h4>
+                              <div class="row">
+                                      <div class="col">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Rate Code</label>
+                                                <input type="text" name="RateCode" #RateCode="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.RateCode"  class="form-control" >
+                                              </div>
+                                            </div>
+                                      <div class="col">
+                                          <div class="form-group">
+                                              <label for="inputEmail4"> Type Master</label>
+                                              <select class="form-control" type="text" name="TypemasterId" #TypemasterId="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.TypemasterId"  class="form-control" >
+                                                    <option value="0">--Select--</option>
+                                                    <option  *ngFor="let item of typeMasterList" [value]="item.TypeMasterId">{{item.TypeCode}}</option>
+                                                 
+                                                  </select>
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Conv. Fact.</label>
+                                                <input type="text" type="text" name="ConvFact" #ConvFact="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.ConvFact"  class="form-control" >
+                                              </div>
+                                      </div>
+                                      <div class="col">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Curr. Rate.</label>
+                                                <input type="text" type="text" name="CurrencyRate" #CurrencyRate="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.CurrencyRate"  class="form-control" >
+                                              </div>
+                                      </div>
+                                    
+                                        
+                                  </div>
+                                  <div class="row">
+                                          <div class="col-md-9">
+                                                  <div class="form-group">
+                                                    <label for="projectinput1">Description</label>
+                                                    <input type="textbox" type="text" name="Description" #Status="ngModel" required [(ngModel)]="rateMasterservice.rateMaster.Description"  class="form-control" >
+                                                  </div>
+                                          </div>
+                                          <div class="col">
+                                              <label>&nbsp;</label>           
+                 <div class="mt-0">
+                   <button type="submit" class="btn btn-primary " style="margin-right:1px" [disabled]="!ratemaster.valid" > Submit   <i class="fa fa-database position-right"></i></button>
+                 
+                 </div>    
+                                  </div>
+                                                                             
+                      
+                           <app-rate-master-list></app-rate-master-list>
+                                  
+                      
+                  </div>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+
+      
+  </div>
+  </div></section>

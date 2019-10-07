@@ -1,0 +1,69 @@
+<!-- --------------------------- -->
+<form class="col-sm-9" [formGroup]="StockGrideFrom" id="StockGrideId">
+  <div formArrayName="StockGrideArray">
+    <div class="table-responsive verticalTable">
+      <div class="outer">
+
+        <table class="table  mb-0">
+          <thead class="bg-info text-white form-group  ">
+            <tr>
+              <th> Type </th>
+              <th>Name</th>
+              <th>Weight</th>
+              <th> Qty</th>
+              <th> Rate</th>
+              <th> Price</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let item of sellingPoints.controls; let pointIndex=index" [formGroupName]="pointIndex">
+             
+              <td class="filterable-cell">
+                <select formControlName="type" class=" form-control">
+                  <!-- <option *ngFor="let item of getStoneList" data-value={{item.Name}}>{{item.Name}}</option> -->
+                  <!-- <option  *ngFor="let item of getStoneList" [value]="{{item.Name}}">{{item.Name}}</option> -->
+
+                </select>
+              </td>
+              <td class="filterable-cell">
+                <select formControlName="Name" class="form-control">
+             
+                </select>
+              </td>
+              <td class="filterable-cell">
+                <input [ngClass]="{'input':flag_Weight}" class="form-control" formControlName="Weight" />
+              </td>
+              <td class="filterable-cell">
+                <input class=" form-control" [ngClass]="{'input':flag_Qty}" formControlName="Qty" />
+              </td>
+              <td class="filterable-cell">
+                <input class=" form-control" [ngClass]="{'input':flag_Rate}" formControlName="Rate" />
+              </td>
+              <td class="filterable-cell">
+                <input class=" form-control" [ngClass]="{'input':flag_Price}" formControlName="Price" />
+              </td>
+              <td>
+
+              </td>
+              <td class="filterable-cell">
+                <button type="button" class="btn btn-danger btn-sm"
+                  (click)="deleteSellingPoint(pointIndex)">Del</button>
+              </td>
+            </tr>
+
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,59 @@
+
+<app-navbar></app-navbar>
+<section id="basic-form-layouts">
+  <div class="row match-height">
+      <div class="col">
+          <div class="card">
+              <div class="card-header">
+                  <!-- <h4 class="card-title" id="basic-layout-form">Project Info</h4> -->
+                  <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                      <ul class="list-inline mb-0">
+                          <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                          <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                          <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                          <li><a data-action="close"><i class="ft-x"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="card-content collapse show">
+                  <div class="card-body">
+                    <form class="form" #typeratemaster="ngForm" (ngSubmit)="OnSubmit(typeratemaster)">
+                          <div class="form-body">
+                              <h4 class="form-section"><i class="ft-user"></i> Type Master</h4>
+                              <div class="row">
+                                      <div class="col-md-3">
+                                              <div class="form-group">
+                                                <label for="projectinput1">Type Code</label>
+                                                
+                                                <input type="hidden" name="CreatedOn" #CreatedOn="ngModel"  [(ngModel)]="typeMasterservice.typeMaster.CreatedOn" class="form-control" >
+                                               
+                           <input type="hidden"  name="TypeMasterId" #TypeMasterId="ngModel"  [(ngModel)]="typeMasterservice.typeMaster.TypeMasterId"  class="form-control" >
+                                                
+                                                <input type="text" name="TypeCode" #TypeCode="ngModel" required [(ngModel)]="typeMasterservice.typeMaster.TypeCode" class="form-control" >
+                                              </div>
+                                            </div>
+                                           <div class="col">
+                                                  <div class="form-group">
+                                                    <label for="projectinput1">Description</label>
+                                                    <input type="textbox"name="Description" #Description="ngModel" required [(ngModel)]="typeMasterservice.typeMaster.Description" class="form-control" >
+                                                  </div>
+                                          </div>
+                                          <div class="col">
+                                            <label>&nbsp;</label>           
+               <div class="mt-0">
+                 <button type="submit" class="btn btn-primary " style="margin-right:1px" [disabled]="!typeratemaster.valid" > Submit   <i class="fa fa-database position-right"></i></button>
+               
+               </div>            
+                                                           </div>
+                                          
+                                  </div>
+                                  
+                          <app-type-masters-list></app-type-masters-list>
+              </div></form>
+          </div>
+      </div>
+
+      
+  </div>
+  </div></div></section>

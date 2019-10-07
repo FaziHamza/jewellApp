@@ -1,0 +1,381 @@
+<app-navbar></app-navbar>
+<section id="" class="container-fluid" style="background-color: white;">
+        
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-5 " style="border: 1px solid red">
+      <div class="form-check-inline">
+        <label class="form-check-label" for="check1">
+          <input type="checkbox" class="form-check-input" id="check1" name="vehicle1" value="something" checked>Option 1
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" disabled>Option 3
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" disabled>Option 3
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label" for="check2">
+          <input type="checkbox" class="form-check-input" id="check2" name="vehicle2" value="something">Option 2
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" disabled>Option 3
+        </label>
+      </div>
+    
+    </div>
+    <div class="col-4 " style="border: 1px solid red">
+      <div class="form-check-inline">
+        <label class="form-check-label" for="check1">
+          <input type="checkbox" class="form-check-input" id="check1" name="vehicle1" value="something" checked>Option 1
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label" for="check2">
+          <input type="checkbox" class="form-check-input" id="check2" name="vehicle2" value="something">Option 2
+        </label>
+      </div>
+      
+   
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row ">
+    <div class="col-md-6" >
+      <form [formGroup]="StockFrom">
+          <fieldset class="border p-2">
+         <legend  class="w-auto">Your Legend</legend>
+         <div class="row">
+            <label class="radio-inline">
+                <input type="radio" name="optradio" checked> <span class="mt-1">Option 1 </span>
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio">Option 2
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio">Option 3
+              </label>
+        </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <form [formGroup]="StockFrom">
+        <fieldset>
+          <legend>Item Type</legend>
+          <div class="col-sm-12">
+            <div class="form-group">
+
+                <div class="col-sm-1" style="height: 20px;margin-left: 0px!important;width: 20px">
+                    <input type="radio" style="padding: 0px;height: 20px;margin-top: 0px;margin-right: 0px;"
+                      formControlName="Item_Type" value="Gold">
+                  </div>
+                  <div class="col-sm-1">Gold</div>
+                  <div class="col-sm-1" style="height: 20px;margin-left: 0px!important;width: 20px">
+                    <input type="radio" style="padding: 0px;height: 20px;margin-top: 0px;margin-right: 0px;"
+                      formControlName="Item_Type" value="Diamond">
+                  </div>
+                  <div class="col-sm-1">Diamond</div>
+
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="row match-height">
+    <div class="col-md-4">
+
+      <form [formGroup]="StockFrom" id="StockFrom">
+        <fieldset>
+          <legend>Item Details</legend>
+          <div class="form-body">
+            <!-- row numbr 1 -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-9">
+                  <label for="projectinput1">Group Item</label>
+                </div>
+                <div class="col-sm-3">
+                  <input style="height: 14px" type="checkbox" class="form-control">
+                </div>
+              </div>
+              <input type="text" class="form-control" formControlName="Group_Item" required>
+            </div>
+            <!-- row numbr 2 -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="projectinput1">Karat</label>
+                  <input type="text" class="form-control" formControlName="Karat" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Qty</label>
+                  <input type="text" class="form-control" formControlName="Qty" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Pieces</label>
+                  <input type="text" class="form-control" formControlName="Pieces" required>
+                </div>
+              </div>
+            </div>
+            <!-- row numbr 3 -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="projectinput1">Tag Number</label>
+                  <input type="text" class="form-control" formControlName="Tag_Number" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn btn-primary btn-sm ">Auto</button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn btn-primary btn-sm ">Manual</button>
+              </div>
+            </div>
+            <!-- row numbr 4 -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="projectinput1">Design</label>
+                  <input type="text" class="form-control" formControlName="Design" required>
+                </div>
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-primary btn-sm ">+</button>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Size</label>
+                  <input type="text" class="form-control" formControlName="Size" required>
+                </div>
+              </div>
+            </div>
+            <!-- row numbr 6 -->
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <label for="projectinput1">Worker Name</label>
+                  <input style="margin-right:0px;" type="text" class="form-control" formControlName="Worker_Name"
+                    required>
+                </div>
+              </div>
+              <div class="col-sm-1">
+                <button type="button" class="btn btn-primary btn-sm ">+</button>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Worker ID</label>
+                  <input type="text" class="form-control" formControlName="Worker_ID" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Making</label>
+                  <input type="text" class="form-control" formControlName="Making" required>
+                </div>
+              </div>
+            </div>
+            <!-- row numbr 7 -->
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="projectinput1">Description</label>
+                  <input type="text" class="form-control" formControlName="Description" required>
+                </div>
+              </div>
+            </div>
+            <!-- row numbr 8 -->
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <!-- Calculation -->
+    <div class="col-md-4">
+      <form [formGroup]="StockFrom" id="StockFrom1">
+        <fieldset>
+          <legend>Calculation</legend>
+          <div class="form-body">
+            <!-- row mumber 1 -->
+            <div class="row">
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <label for="projectinput1">Total Net Weight</label>
+                  <input type="text" class="form-control" formControlName="Total_Net_Weight" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn btn-primary btn-sm ">Get Weight</button>
+              </div>
+            </div>
+            <!-- row mumber 2 -->
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Waste%</label>
+                  <input type="text" class="form-control" formControlName="Waste" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Waste in Gm</label>
+                  <input type="text" class="form-control" formControlName="Waste_in_Gm" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Total Weight</label>
+                  <input type="text" class="form-control" formControlName="Total_Weight" required>
+                </div>
+              </div>
+            </div>
+            <!-- row mumber 3 -->
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label for="projectinput1">Ratti In</label>
+                  <input type="text" class="form-control" formControlName="Ratti_In" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Puren Weight</label>
+                  <input type="text" class="form-control" formControlName="Puren_Weight" required>
+                </div>
+              </div>
+            </div>
+            <!-- row mumber 4 -->
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Making/Gm</label>
+                  <input type="text" class="form-control" formControlName="Making_Gm" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Total Making</label>
+                  <input type="text" class="form-control" formControlName="Total_Making" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Making Type</label>
+                  <input type="text" class="form-control" formControlName="Making_Type" required>
+                </div>
+              </div>
+            </div>
+            <!-- row mumber 5 -->
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label for="projectinput1">Lacquer/Gm</label>
+                  <input type="text" class="form-control" formControlName="Lacquer_Gm" required>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="projectinput1">Toatal Lacquer</label>
+                  <input type="text" class="form-control" formControlName="Toatal_Lacquer" required>
+                </div>
+              </div>
+            </div>
+            <!-- row mumber 6 -->
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Item Cost</label>
+                  <input type="text" class="form-control" formControlName="Item_Cost" required>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="projectinput1">Item Price</label>
+                  <input type="text" class="form-control" formControlName="Item_Price" required>
+                </div>
+              </div>
+            </div>
+            <!-- row mumber 7 -->
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <!-- Picture -->
+    <div class="col-md-4">
+      <form [formGroup]="StockFrom" id="StockFrom2">
+        <fieldset>
+          <legend>Picture</legend>
+          <div class="form-body">
+            <div class="row">
+              <div class="col-sm-6">
+
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <select formControlName="pic" class=" form-control">
+                    <option value="option">part1</option>
+                    <!-- <option *ngFor="let item of getStoneList" data-value={{item.Name}}>{{item.Name}}</option> -->
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="height: 330px">
+
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-md-8">
+      <app-stock-stonegrid></app-stock-stonegrid>
+    </div>
+    <div class="col-md-4">
+        <div class="row" style="height: 50px">
+            <div class="col-sm-4" style="background-color:green;">
+            </div>
+            <div class="col-sm-4" style="background-color:red;">
+            </div>
+            <div class="col-sm-4" style="background-color:blue;">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm ">Browse</button>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm ">Add</button>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm ">Remove</button>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm ">Start</button>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary btn-sm ">Capture</button>
+            </div>
+
+          </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary btn-sm my_style" (click)="getvalue()">Add</button>
+
+  <button type="button" class="btn btn-primary btn-sm my_style " (click)="save()">Save</button>
+  <div class="row">
+    <div class="col-sm-8"></div>
+  </div>
+</section>

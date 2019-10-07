@@ -1,0 +1,414 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+/* @import "~@ng-select/ng-select/themes/default.theme.css"; */
+.horizontal-menu .navbar-horizontal .nav-item i
+{
+    font-size: 1.2rem;
+}
+
+.horizontal-menu .navbar-horizontal .nav-item a span
+{
+    font-size: 1.1rem;
+}
+    
+.horizontal-menu .navbar-horizontal ul#main-menu-navigation > li > a
+{
+    padding: 1.8rem 1rem;
+}
+
+.horizontal-menu #main-menu-navigation ul li a span
+{
+    display: inline-block; 
+
+    -webkit-transition: all .2s ease;
+       -moz-transition: all .2s ease;
+         -o-transition: all .2s ease;
+            transition: all .2s ease;
+}
+.horizontal-menu #main-menu-navigation ul li a span:hover,
+.horizontal-menu #main-menu-navigation ul li a span .hover
+{
+    -webkit-transform: translateX(4px);
+       -moz-transform: translateX(4px);
+        -ms-transform: translateX(4px);
+         -o-transform: translateX(4px);
+            transform: translateX(4px);
+}
+
+.horizontal-menu.menu-collapsed #main-menu-navigation .nav-item a span
+{
+    display: none;
+}
+
+.horizontal-menu .navbar-container .dropdown-menu .dropdown-submenu.show .dropdown-menu
+{
+    overflow-y: scroll; 
+
+    max-height: 300px;
+}
+
+.horizontal-menu .navigation-header
+{
+    font-family: inherit;
+    font-size: 1rem; 
+
+    padding: 8px 20px;
+
+    color: #929292;
+}
+
+.horizontal-menu .navbar-flipped .navbar-nav .nav-item
+{
+    float: right;
+}
+
+.horizontal-menu .navbar-light ul#main-menu-navigation > li.active > a
+{
+    background: whitesmoke;
+}
+
+.horizontal-menu .navbar-light .active > a
+{
+    font-weight: 500; 
+
+    background: whitesmoke;
+}
+
+.horizontal-menu .navbar-dark .nav-item.active > a
+{
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.horizontal-menu .navbar-dark .nav-item:hover,
+.horizontal-menu .navbar-dark .nav-item .hover
+{
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.horizontal-menu .navbar-dark .active > a
+{
+    font-weight: 500; 
+
+    background: whitesmoke;
+}
+
+/*=========================================================================================
+	File Name: vertical-overlay-menu.scss
+	Description: A overlay style vertical menu with show and hide support. It support 
+	light & dark version, filpped layout, right side icons, native scroll and borders menu 
+	item seperation.
+	----------------------------------------------------------------------------------------
+	Item Name: Robust - Responsive Admin Template
+	Version: 2.1
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+.vertical-overlay-menu .content
+{
+    margin-left: 0;
+}
+
+.vertical-overlay-menu .navbar .navbar-header
+{
+    float: left;
+
+    width: 240px;
+}
+
+.vertical-overlay-menu .navbar.navbar-brand-center .navbar-container
+{
+    margin-left: 0;
+}
+
+.vertical-overlay-menu .navbar.navbar-brand-center .navbar-header
+{
+    float: left;
+
+    width: auto;
+}
+
+.vertical-overlay-menu .main-menu,
+.vertical-overlay-menu.menu-hide .main-menu
+{
+    left: -240px; 
+
+    width: 240px;
+
+    -webkit-transition: width .25s,opacity .25s,-webkit-transform .25s;
+       -moz-transition: width .25s,opacity .25s,transform .25s,-moz-transform .25s;
+         -o-transition: width .25s,opacity .25s,-o-transform .25s;
+            transition: width .25s,opacity .25s,-webkit-transform .25s;
+            transition: width .25s,opacity .25s,transform .25s;
+            transition: width .25s,opacity .25s,transform .25s,-webkit-transform .25s,-moz-transform .25s,-o-transform .25s;
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+
+    opacity: 0;
+}
+.vertical-overlay-menu .main-menu .navigation .navigation-header .ft-minus
+{
+    display: none;
+}
+.vertical-overlay-menu .main-menu .navigation > li > a > i
+{
+    margin-right: 12px;
+}
+.vertical-overlay-menu .main-menu .navigation > li > a > i:before
+{
+    font-size: 1.2rem;
+
+    -webkit-transition: 200ms ease all;
+       -moz-transition: 200ms ease all;
+         -o-transition: 200ms ease all;
+            transition: 200ms ease all;
+}
+.vertical-overlay-menu .main-menu .navigation li.has-sub > a:not(.mm-next):after
+{
+    font-family: 'FontAwesome';
+    font-size: 1rem;
+
+    position: absolute;
+    top: 12px;
+    right: 20px;
+
+    display: inline-block;
+
+    content: '\f105';
+    transition: -webkit-transform .2s ease-in-out; 
+    -webkit-transform: rotate(0deg);
+       -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+         -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+}
+.vertical-overlay-menu .main-menu .navigation li.has-sub .has-sub > a:not(.mm-next):after
+{
+    top: 8px;
+}
+.vertical-overlay-menu .main-menu .navigation li.open > a:not(.mm-next):after
+{
+    -webkit-transform: rotate(90deg);
+       -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+         -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+}
+.vertical-overlay-menu .main-menu .main-menu-footer
+{
+    bottom: 55px;
+}
+.vertical-overlay-menu .main-menu .main-menu-footer
+{
+    width: 240px;
+}
+
+.vertical-overlay-menu.menu-open .main-menu
+{
+    -webkit-transition: width .25s,opacity .25s,-webkit-transform .25s;
+       -moz-transition: width .25s,opacity .25s,transform .25s,-moz-transform .25s;
+         -o-transition: width .25s,opacity .25s,-o-transform .25s;
+            transition: width .25s,opacity .25s,-webkit-transform .25s;
+            transition: width .25s,opacity .25s,transform .25s;
+            transition: width .25s,opacity .25s,transform .25s,-webkit-transform .25s,-moz-transform .25s,-o-transform .25s; 
+    -webkit-transform: translate3d(240px, 0, 0);
+       -moz-transform: translate3d(240px, 0, 0);
+            transform: translate3d(240px, 0, 0);
+
+    opacity: 1;
+}
+
+.vertical-overlay-menu.menu-flipped .main-menu
+{
+    right: -240px;
+    left: inherit;
+}
+
+.vertical-overlay-menu.menu-flipped .navbar .navbar-container
+{
+    margin: 0;
+    margin-right: 240px;
+}
+
+.vertical-overlay-menu.menu-flipped .navbar .navbar-header
+{
+    float: right;
+}
+
+.vertical-overlay-menu.menu-flipped.menu-open .main-menu
+{
+    -webkit-transform: translate3d(-240px, 0, 0);
+       -moz-transform: translate3d(-240px, 0, 0);
+            transform: translate3d(-240px, 0, 0);
+}
+
+@media (max-width: 991.98px)
+{
+    .vertical-overlay-menu .main-menu .main-menu-footer
+    {
+        bottom: 0;
+    }
+}
+
+
+input{
+    /* font-weight: bolder; */
+    font-size: 16px;
+}
+input{
+    /* font-weight: bolder; */
+    height: 35px;
+}
+select{
+    /* font-weight: bolder; */
+    height: 35px;
+}
+form .form-control {
+    /* font-weight: bolder; */
+    height: 36px;
+}
+
+label{
+    font-weight: lighter;
+}
+
+
+.jumbotron{
+    background-color: #fff;
+    padding-top: 32px;
+}
+
+table tr:hover{
+    cursor: pointer;
+}
+
+input.ng-touched.ng-invalid{
+    border-color: #dc3545;
+}
+span.validation-error{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545 !important;
+}
+ .dataTables_wrapper .dataTables_filter input {
+    margin-left: 0.5em !important;
+    display: none !important;
+    border: 10px solid red;
+}
+div.dataTables_wrapper div.dataTables_filter label {
+    display: none !important;
+}
+label{
+    font-size: 16px;
+    font-style: bold;
+}
+/* // dropDown size control */
+.dropdown-menu {
+    max-height: 146px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-top: 0px;
+}
+
+.caret {
+	  float: right;
+    margin-top: 5%;
+}
+
+#menu1 {
+    width: 160px; 
+    text-align: left;
+}
+label{
+    font-weight: 500;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* //for drop down serach abale */
+  .btn-group > .btn:first-child {
+  
+    border: 1px solid #929292 !important;
+}
+.btn-group > .btn {
+  height: 30px;
+}
+.btn .dropdown-toggle .btn-default{
+    margin-bottom: 5px;
+}
+
+/* // fro toggleing switic button  */
+
+
+
+.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+.switchToggle label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 20px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+.switchToggle label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 16px; background: #fff; border-radius: 90px; transition: 0.3s; }
+.switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+.switchToggle input + label:before, .switchToggle input + input + label:before {content: 'No'; position: absolute; top: 5px; left: 35px; width: 26px; height: 16px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: 'Yes'; position: absolute; top: 5px; left: 10px; width: 26px; height: 16px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+.switchToggle label:active:after {width: 30px; } 
+.toggle-switchArea { margin: 10px 0 10px 0; }
