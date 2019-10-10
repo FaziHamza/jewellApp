@@ -107,13 +107,13 @@
                                     <div class="col">
                                             <!-- <div class="form-group" *ngIf="defaultSettingService.readonly==true" >
                                                 <label for="projectinput1">Sub Name</label>
-                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PdItemName" required #PdItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PdItemName" >
+                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PurcahseDetail.ItemName" required #PurcahseDetail.ItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PurcahseDetail.ItemName" >
                                                 <option  *ngFor="let item of ItemListList" data-value={{item.SubItemId}}>{{item.SubItemName}}</option>
                                             </select>
                                             </div> -->
                                             <!-- <div class="form-group"  >
                                                 <label for="projectinput1">Item Name</label>
-                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PdItemName" required #PdItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PdItemName" >
+                                          <select class="form-control" [ngClass]="{'input':flag_ItemId}" name="PurcahseDetail.ItemName" required #PurcahseDetail.ItemName="ngModel" [(ngModel)]="this.purchaseService.purchase.PurcahseDetail.ItemName" >
                                                 <option  *ngFor="let item of ItemListList" data-value={{item.ItemName}}>{{item.ItemName}}</option>
                                             </select>
                                             </div> -->
@@ -135,19 +135,19 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="projectinput1">Net&nbsp;Weight</label>
-                                        <input [ngClass]="{'input':flag_Weight}"   myNumberOnly   class="form-control" required name="PdWeight" #PdWeight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="this.purchaseService.purchase.PdWeight">
+                                        <input [ngClass]="{'input':flag_Weight}"   myNumberOnly   class="form-control" required name="PurcahseDetail.Weight" #PurcahseDetail.Weight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="this.purchaseService.purchase.PurcahseDetail.Weight">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="projectinput1"> Wastage&nbsp;% </label>
-                                        <input type="text" myNumberOnly [ngClass]="{'input':flag_WastePercent}"  class="form-control" required name="PdWastegePercent" (keyup)="CalculatePureWeight()" #RateCode="ngModel" [(ngModel)]="purchaseService.purchase.PdWastegePercent">
+                                        <input type="text" myNumberOnly [ngClass]="{'input':flag_WastePercent}"  class="form-control" required name="PurcahseDetail.WastegePercent" (keyup)="CalculatePureWeight()" #RateCode="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.WastegePercent">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="projectinput1">{{lblcart}}</label>
-                                        <!-- <select  class="form-control"   required    (change)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity">  -->
+                                        <!-- <select  class="form-control"   required    (change)="CalculatePureWeight()" name="PurcahseDetail.Purity" #PurcahseDetail.Purity="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.Purity">  -->
                                             <ng-select [items]="RattiList"
                                             bindLabel="Purity"
                                             bindValue="Purity"
@@ -155,10 +155,10 @@
                                             [ngModelOptions]="{standalone: true}"
                                             (change)="CalculatePureWeight()"
 
-                                            name="Pdpurity" required #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                            name="PurcahseDetail.Purity" required #PurcahseDetail.Purity="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.Purity">
                                  </ng-select>
                                     
-                                            <!-- <input type="text"   class="form-control"  (change)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" [(ngModel)]="purchaseService.purchase.Pdpurity"> -->
+                                            <!-- <input type="text"   class="form-control"  (change)="CalculatePureWeight()" name="PurcahseDetail.Purity" #PurcahseDetail.Purity="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.Purity"> -->
                                            
                                             <!-- <option  *ngFor="let item of karatmasterList ;let i = index" [value]="item.KaratCode" data-value={{item.KaratCode}}>{{item.KaratCode}}</option> -->
                                           
@@ -168,24 +168,24 @@
                                 <!-- <div class="col">
                                     <div class="form-group" *ngIf="defaultSettingService.readonly!=true">
                                         <label for="projectinput1" (click)="togglelbl()" (click)="CalculatePureWeight()">{{lblcart}}</label>
-                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" value={{purchaseService.purchase.Pdpurity}} [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="PurcahseDetail.Purity" #PurcahseDetail.Purity="ngModel" value={{purchaseService.purchase.PurcahseDetail.Purity}} [(ngModel)]="purchaseService.purchase.PurcahseDetail.Purity">
                                     </div>
                                     <div class="form-group" *ngIf="defaultSettingService.readonly=true">
                                         <label for="projectinput1" (click)="togglelbl()" (click)="CalculatePureWeight()">{{lblcart}}</label>
-                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="Pdpurity" #Pdpurity="ngModel" value={{purchaseService.purchase.Pdpurity}} [(ngModel)]="purchaseService.purchase.Pdpurity">
+                                        <input type="text" [ngClass]="{'input':flag_Purity}" myNumberOnly class="form-control" required value="{{standardPurity}}" (keyup)="CalculatePureWeight()" name="PurcahseDetail.Purity" #PurcahseDetail.Purity="ngModel" value={{purchaseService.purchase.PurcahseDetail.Purity}} [(ngModel)]="purchaseService.purchase.PurcahseDetail.Purity">
                                     </div>
                                 </div> -->
                                 
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="projectinput1">Pure&nbsp;Weight</label>
-                                        <input type="text" class="form-control" required name="PdPureWeight" myNumberOnly  #PdPureWeight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="purchaseService.purchase.PdPureWeight">
+                                        <input type="text" class="form-control" required name="PurcahseDetail.PureWeight" myNumberOnly  #PurcahseDetail.PureWeight="ngModel" (keyup)="CalculatePureWeight()" [(ngModel)]="purchaseService.purchase.PurcahseDetail.PureWeight">
                                     </div >
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="projectinput1">QTY</label>
-                                        <input type="text"class="form-control" [ngClass]="{'input':flag_Quantity}" myNumberOnly required name="PdQuantity" #PdQuantity="ngModel" [(ngModel)]="purchaseService.purchase.PdQuantity">
+                                        <input type="text"class="form-control" [ngClass]="{'input':flag_Quantity}" myNumberOnly required name="PurcahseDetail.Quantity" #PurcahseDetail.Quantity="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.Quantity">
                                     </div>
                                 </div>
                            
@@ -195,33 +195,33 @@
                                 <div class="col">
                                         <div class="form-group">
                                             <label for="projectinput1">Item Rate</label>
-                                            <input type="text" required class="form-control" myNumberOnly [ngClass]="{'input':flag_ItemRate}"  name="PdItemRate" #PdItemRate="ngModel"  (keyup)="calculateRate()" [(ngModel)]="purchaseService.purchase.PdItemRate">
+                                            <input type="text" required class="form-control" myNumberOnly [ngClass]="{'input':flag_ItemRate}"  name="PurcahseDetail.ItemRate" #PurcahseDetail.ItemRate="ngModel"  (keyup)="calculateRate()" [(ngModel)]="purchaseService.purchase.PurcahseDetail.ItemRate">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="projectinput1">Item Gold Price</label>
                                             
-                                            <input type="text"   class="form-control" myNumberOnly [ngClass]="{'input':flag_GoldPrice}"  name="PdGoldPrice" #PdGoldPrice="ngModel" [(ngModel)]="purchaseService.purchase.PdGoldPrice">
+                                            <input type="text"   class="form-control" myNumberOnly [ngClass]="{'input':flag_GoldPrice}"  name="PurcahseDetail.GoldPrice" #PurcahseDetail.GoldPrice="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.GoldPrice">
                                         </div>
                                     </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="projectinput1" (click)="makingChnage()">{{making}}</label>
                                     <!-- (keyup)="calculateMaking()" -->
-                                    <input type="text" NumberOnly   myNumberOnly [ngClass]="{'input':flag_TotalMaking}"   class="form-control" name="PdMakingType" #PdMakingType="ngModel" [(ngModel)]="purchaseService.purchase.PdMakingType">
+                                    <input type="text" NumberOnly   myNumberOnly [ngClass]="{'input':flag_TotalMaking}"   class="form-control" name="PurcahseDetail.MakingType" #PurcahseDetail.MakingType="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.MakingType">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="projectinput1">Total Making</label>
-                                    <input type="text"  disabled  class="form-control" myNumberOnly name="PdTotalMaking" #PdTotalMaking="ngModel" [(ngModel)]="purchaseService.purchase.PdTotalMaking" >
+                                    <input type="text"  disabled  class="form-control" myNumberOnly name="PurcahseDetail.TotalMaking" #PurcahseDetail.TotalMaking="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.TotalMaking" >
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
                                     <label for="projectinput1">Description</label>
-                                    <input type="textbox" class="form-control" name="PdDescription" #PdDescription="ngModel" [(ngModel)]="purchaseService.purchase.PdDescription">
+                                    <input type="textbox" class="form-control" name="PurcahseDetail.Description" #PurcahseDetail.Description="ngModel" [(ngModel)]="purchaseService.purchase.PurcahseDetail.Description">
                                 </div>
                             </div>
                             <div class="col">
@@ -384,7 +384,34 @@
                                                     </div>
                                             </div>
                                     </div>
-   
+                                    
+                                <div>
+                                    <div class="card-body mt-1">
+                                        <div class="row">
+                                                <div class="col-sm-5">
+                                                        <label for="projectinput1">Cash Payment</label>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                        <div class="form-group">  
+                                                                <input type="text" (click)="goldDetailPop()" myNumberOnly  required  class="form-control" name="CashPayment" #CashPayment="ngModel" [(ngModel)]="purchaseService.purchase.CashPayment">
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>  
+                                <div class="card-body">
+                                    <div class="row">
+                                            <div class="col-sm-5">
+                                                    <label for="projectinput1">Cash Balance</label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                    <div class="form-group">  
+                                                            <input type="text" (click)="goldDetailPop()" myNumberOnly  required  class="form-control" name="CashPayment" #CashPayment="ngModel" [(ngModel)]="purchaseService.purchase.CashPayment">
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                                </div>
+                               
                                     
                                 </div>
                             </div>

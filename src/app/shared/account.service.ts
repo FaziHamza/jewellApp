@@ -43,9 +43,9 @@ export class AccountService {
      Near: account.Near,
      EmaCityNameil: account.CityName,
     
-     PhonoNo : account.PhonoNo,
+     PhonoNo : account.PhoneNos,
      AccountTypeId: account.AccountTypeId,
-     MobileNo : account.MobileNo,
+     MobileNo : account.MobileNos,
      AccountTypes : AccountTypes,
      
   }

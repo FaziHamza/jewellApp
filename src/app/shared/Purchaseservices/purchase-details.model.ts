@@ -19,5 +19,6 @@ export class PurcahseDetail
     GoldPrice: number;
     ItemPrice: number;
     CreatedOn: Date | string | null;
+    WastegePercent:number;
     
 }

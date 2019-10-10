@@ -23,6 +23,7 @@ import { PurchaseService } from 'src/app/shared/Purchaseservices/purchase.servic
 import { RateMasterService } from 'src/app/shared/Services/Master_Form/rate-master.service';
 import { CurrencyTypeService } from 'src/app/shared/Services/Master_Form/Currency-type.service';
 import { PaymentService } from 'src/app/shared/Services/Payment/payment.service';
+import { PurcahseDetail } from 'src/app/shared/Purchaseservices/purchase-details.model';
 
 
 //import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -42,10 +43,10 @@ export class PurchaseComponent implements OnInit {
   constructor(public purchaseService:PurchaseService ,
     public paymentService:PaymentService,
     public currencyTypeService :CurrencyTypeService,
-    public karatMasterservive:KaratMasterService,
+    public karatMasterService:KaratMasterService,
     public rateMasterService :RateMasterService,
     public toastr: ToastrService,
-    public itemServies : ItemService,
+    public itemService : ItemService,
     public subItemServies : SubItemService,
     public accountMasterService: AccountMasterService,
     public formulaService : FormulaService,
@@ -94,7 +95,7 @@ this.Origin = AppSettting.Origin;
    {
      this.resetForm();
 
-    this.itemServies.getItemListforPurchase().subscribe(res => {
+    this.itemService.getItemListforPurchase().subscribe(res => {
       this.ItemListList = res as any[];
     });
     if(AppSettting.Origin=="Pakistan"){
@@ -122,7 +123,7 @@ this.Origin = AppSettting.Origin;
   this.rateMasterService.getratmaster().subscribe(res => {
     this.ratemasterlist = res as RateMaster[];
   });
-  this.karatMasterservive.getKaratList().subscribe(res => {
+  this.karatMasterService.getKaratList().subscribe(res => {
     this.karatmasterList = res as KaratMaster[];
   });
  
@@ -133,6 +134,7 @@ this.Origin = AppSettting.Origin;
   }
   // open modeal
   goldDetailPop(link){
+     this.paymentService.formtype ="Purchase"
     if(AppSettting.Origin=="Pakistan"){
       this.defaultSettingService.readonly =true;
     }
@@ -188,27 +190,13 @@ this.Origin = AppSettting.Origin;
         PurcahseDetails : null,
         StoneDetails : null,
 
-        PdItemName :'',
-        PdWeight :0,
-        Pdpurity: 0,
-        PdPureWeight: 0,
-        PdMakingPerGram: 0,
-        PdMakingType: 0,
-        PdTotalMaking: 0,
-        PdQuantity: 1,
-        PdDescription: '',
-        PdStatus: '',
-        PdKarat: '',
-        PdItemRate: 0,
-        PdGoldPrice: 0,
-        PdItemPrice: 0,
-        PdWastegePercent:0,
+ 
         TotalQty :0,
         TotalWeight:0,
         TotalPweight:0,
         GoldPrice:0,
         TotalPrice:0,
-        pdID:0,
+     
         stoneId:0,
         SType:'',
         SName :'',
@@ -220,6 +208,7 @@ this.Origin = AppSettting.Origin;
         AccountMasters:null,
         GoldDetails:null,
         Items:null,
+        PurcahseDetail :new  PurcahseDetail(),
       }
     
     }
@@ -248,33 +237,33 @@ this.Origin = AppSettting.Origin;
     }
     CalculatePureWeight(){
    
-      this.purchaseService.purchase.PdPureWeight =  Number(this.formulaService.calculatePureWeight(this.purchaseService.purchase.PdWeight,this.purchaseService.purchase.PdWastegePercent,this.purchaseService.purchase.Pdpurity));
+      this.purchaseService.purchase.PurcahseDetail.PureWeight =  Number(this.formulaService.calculatePureWeight(this.purchaseService.purchase.PurcahseDetail.Weight,this.purchaseService.purchase.PurcahseDetail.WastegePercent,this.purchaseService.purchase.PurcahseDetail.Purity));
     }
    
   
     calculateRate(){
 
-console.log("this.purchaseService.purchase.PdGoldPrice="+this.purchaseService.purchase.PdGoldPrice)
+console.log("this.purchaseService.purchase.PurcahseDetail.GoldPrice="+this.purchaseService.purchase.PurcahseDetail.GoldPrice)
 
-      this.purchaseService.purchase.PdGoldPrice = Number((Number(this.purchaseService.purchase.PdItemRate)*Number(   this.purchaseService.purchase.PdPureWeight)).toFixed(3))
+      this.purchaseService.purchase.PurcahseDetail.GoldPrice = Number((Number(this.purchaseService.purchase.PurcahseDetail.ItemRate)*Number(   this.purchaseService.purchase.PurcahseDetail.PureWeight)).toFixed(3))
     }
     
     calculateMaking(){
     
 
       if(this.making=="Making per Gram"){
-console.log("this.purchaseService.purchase.PdTotalMaking="+this.purchaseService.purchase.PdTotalMaking)
+console.log("this.purchaseService.purchase.PurcahseDetail.TotalMaking="+this.purchaseService.purchase.PurcahseDetail.TotalMaking)
      
-        this.purchaseService.purchase.PdTotalMaking = Number((Number(this.purchaseService.purchase.PdMakingType)* (Number(this.purchaseService.purchase.PdWeight)+(Number(this.purchaseService.purchase.PdWastegePercent)/100)*Number(this.purchaseService.purchase.PdWeight))).toFixed(3));
+        this.purchaseService.purchase.PurcahseDetail.TotalMaking = Number((Number(this.purchaseService.purchase.PurcahseDetail.MakingType)* (Number(this.purchaseService.purchase.PurcahseDetail.Weight)+(Number(this.purchaseService.purchase.PurcahseDetail.WastegePercent)/100)*Number(this.purchaseService.purchase.PurcahseDetail.Weight))).toFixed(3));
  
       }else if(this.making=="Making per Tola"){
      
-        this.purchaseService.purchase.PdTotalMaking = Number((Number(this.purchaseService.purchase.PdMakingType)* ((Number(this.purchaseService.purchase.PdWeight)+(Number(this.purchaseService.purchase.PdWastegePercent)/100)*Number(this.purchaseService.purchase.PdWeight))/11.664)).toFixed(3));
+        this.purchaseService.purchase.PurcahseDetail.TotalMaking = Number((Number(this.purchaseService.purchase.PurcahseDetail.MakingType)* ((Number(this.purchaseService.purchase.PurcahseDetail.Weight)+(Number(this.purchaseService.purchase.PurcahseDetail.WastegePercent)/100)*Number(this.purchaseService.purchase.PurcahseDetail.Weight))/11.664)).toFixed(3));
   
       }else if(this.making="Making per Piece"){
 
     
-      this.purchaseService.purchase.PdTotalMaking = Number((Number(this.purchaseService.purchase.PdMakingType)* (Number(this.purchaseService.purchase.PdQuantity))).toFixed(3));
+      this.purchaseService.purchase.PurcahseDetail.TotalMaking = Number((Number(this.purchaseService.purchase.PurcahseDetail.MakingType)* (Number(this.purchaseService.purchase.PurcahseDetail.Quantity))).toFixed(3));
 
       }
     }
@@ -294,29 +283,27 @@ console.log("this.purchaseService.purchase.PdTotalMaking="+this.purchaseService.
    {
      ItemId  :  this.purchaseService.purchase.Items.ItemId,
      ItemName  :  this.purchaseService.purchase.Items.ItemName,
-     Weight  : this.purchaseService.purchase.PdWeight,
-     WastePercent : this.purchaseService.purchase.PdWastegePercent,
-     Karat  :  this.purchaseService.purchase.PdKarat,
-     id : this.purchaseService.purchase.pdID,
-     Purity  : this.purchaseService.purchase.Pdpurity,
-     PureWeight :  this.purchaseService.purchase.PdPureWeight,
-     Quantity  : this.purchaseService.purchase.PdQuantity,
-     ItemRate  : this.purchaseService.purchase.PdItemRate,
-     GoldPrice : this.purchaseService.purchase.PdGoldPrice,
-     TotalMaking : this.purchaseService.purchase.PdTotalMaking,
-     MakingType : this.purchaseService.purchase.PdMakingType,
-     Description : this.purchaseService.purchase.PdDescription,
+     Weight  : this.purchaseService.purchase.PurcahseDetail.Weight,
+     WastePercent : this.purchaseService.purchase.PurcahseDetail.WastegePercent,
+     Karat  :  this.purchaseService.purchase.PurcahseDetail.Karat,
+     Purity  : this.purchaseService.purchase.PurcahseDetail.Purity,
+     PureWeight :  this.purchaseService.purchase.PurcahseDetail.PureWeight,
+     Quantity  : this.purchaseService.purchase.PurcahseDetail.Quantity,
+     ItemRate  : this.purchaseService.purchase.PurcahseDetail.ItemRate,
+     GoldPrice : this.purchaseService.purchase.PurcahseDetail.GoldPrice,
+     TotalMaking : this.purchaseService.purchase.PurcahseDetail.TotalMaking,
+     MakingType : this.purchaseService.purchase.PurcahseDetail.MakingType,
+     Description : this.purchaseService.purchase.PurcahseDetail.Description,
 
    };
    console.log(this.purchaseDetails );
    this.myArry.push(this.purchaseDetails);
-   this.purchaseService.purchase.pdID= Number(this.purchaseService.purchase.pdID) +1;
-   this.purchaseService.purchase.TotalQty=Number(this.purchaseService.purchase.TotalQty)+Number(this.purchaseService.purchase.PdQuantity);
-   this.purchaseService.purchase.TotalWeight=Number(this.purchaseService.purchase.TotalWeight)+Number(this.purchaseService.purchase.PdWeight);
-   this.purchaseService.purchase.TotalPureWeight=Number(this.purchaseService.purchase.TotalPureWeight)+Number(this.purchaseService.purchase.PdPureWeight);
-   this.purchaseService.purchase.GoldPrice= Number(this.purchaseService.purchase.GoldPrice)+Number(this.purchaseService.purchase.PdGoldPrice);
-   this.purchaseService.purchase.TotalMaking=Number(this.purchaseService.purchase.TotalMaking)+Number(this.purchaseService.purchase.PdTotalMaking);
-   this.purchaseService.purchase.TotalPrice=Number(this.purchaseService.purchase.TotalPrice)+Number(this.purchaseService.purchase.PdItemRate);
+   this.purchaseService.purchase.TotalQty=Number(this.purchaseService.purchase.TotalQty)+Number(this.purchaseService.purchase.PurcahseDetail.Quantity);
+   this.purchaseService.purchase.TotalWeight=Number(this.purchaseService.purchase.TotalWeight)+Number(this.purchaseService.purchase.PurcahseDetail.Weight);
+   this.purchaseService.purchase.TotalPureWeight=Number(this.purchaseService.purchase.TotalPureWeight)+Number(this.purchaseService.purchase.PurcahseDetail.PureWeight);
+   this.purchaseService.purchase.GoldPrice= Number(this.purchaseService.purchase.GoldPrice)+Number(this.purchaseService.purchase.PurcahseDetail.GoldPrice);
+   this.purchaseService.purchase.TotalMaking=Number(this.purchaseService.purchase.TotalMaking)+Number(this.purchaseService.purchase.PurcahseDetail.TotalMaking);
+   this.purchaseService.purchase.TotalPrice=Number(this.purchaseService.purchase.TotalPrice)+Number(this.purchaseService.purchase.PurcahseDetail.ItemRate);
  
    this.flag_Weight=false;
    this.flag_WastePercent=false;
@@ -337,12 +324,12 @@ console.log("this.purchaseService.purchase.PdTotalMaking="+this.purchaseService.
   //   }
     
   //   alert(JSON.stringify(this.myArry));
-  //  this.purchaseService.purchase.TotalQty=Number(this.purchaseService.purchase.TotalQty)+Number(this.purchaseService.purchase.PdQuantity);
-  //  this.purchaseService.purchase.TotalWeight=Number(this.purchaseService.purchase.TotalWeight)+Number(this.purchaseService.purchase.PdWeight);
-  //  this.purchaseService.purchase.TotalPureWeight=Number(this.purchaseService.purchase.TotalPweight)+Number(this.purchaseService.purchase.PdPureWeight);
-  //  this.purchaseService.purchase.GoldPrice= Number(this.purchaseService.purchase.GoldPrice)+Number(this.purchaseService.purchase.PdGoldPrice);
-  //  this.purchaseService.purchase.TotalMaking=Number(this.purchaseService.purchase.TotalMaking)+Number(this.purchaseService.purchase.PdTotalMaking);
-  //  this.purchaseService.purchase.TotalPrice=Number(this.purchaseService.purchase.TotalPrice)+Number(this.purchaseService.purchase.PdItemRate);
+  //  this.purchaseService.purchase.TotalQty=Number(this.purchaseService.purchase.TotalQty)+Number(this.purchaseService.purchase.PurcahseDetail.Quantity);
+  //  this.purchaseService.purchase.TotalWeight=Number(this.purchaseService.purchase.TotalWeight)+Number(this.purchaseService.purchase.PurcahseDetail.Weight);
+  //  this.purchaseService.purchase.TotalPureWeight=Number(this.purchaseService.purchase.TotalPweight)+Number(this.purchaseService.purchase.PurcahseDetail.PureWeight);
+  //  this.purchaseService.purchase.GoldPrice= Number(this.purchaseService.purchase.GoldPrice)+Number(this.purchaseService.purchase.PurcahseDetail.GoldPrice);
+  //  this.purchaseService.purchase.TotalMaking=Number(this.purchaseService.purchase.TotalMaking)+Number(this.purchaseService.purchase.PurcahseDetail.TotalMaking);
+  //  this.purchaseService.purchase.TotalPrice=Number(this.purchaseService.purchase.TotalPrice)+Number(this.purchaseService.purchase.PurcahseDetail.ItemRate);
  
   //  this.flag_Weight=false;
   //  this.flag_WastePercent=false;
@@ -440,19 +427,19 @@ console.log("this.purchaseService.purchase.PdTotalMaking="+this.purchaseService.
   
 
     resetPurchaseDetails(){
-  this.purchaseService.purchase.PdItemName = '';
-      this.purchaseService.purchase.PdWeight =0;
- this.purchaseService.purchase.PdWastegePercent=0;
-  this.purchaseService.purchase.PdKarat='';
+  this.purchaseService.purchase.PurcahseDetail.ItemName = '';
+      this.purchaseService.purchase.PurcahseDetail.Weight =0;
+ this.purchaseService.purchase.PurcahseDetail.WastegePercent=0;
+  this.purchaseService.purchase.PurcahseDetail.Karat='';
  
- this.purchaseService.purchase.Pdpurity=0;
-   this.purchaseService.purchase.PdPureWeight=0;
-   this.purchaseService.purchase.PdQuantity=1;
-     this.purchaseService.purchase.PdItemRate=0;
-      this.purchaseService.purchase.PdGoldPrice=0;
-    this.purchaseService.purchase.PdMakingPerGram=0;
-    this.purchaseService.purchase.PdMakingType=0;
-    this.purchaseService.purchase.PdTotalMaking=0;
+ this.purchaseService.purchase.PurcahseDetail.Purity=0;
+   this.purchaseService.purchase.PurcahseDetail.PureWeight=0;
+   this.purchaseService.purchase.PurcahseDetail.Quantity=1;
+     this.purchaseService.purchase.PurcahseDetail.ItemRate=0;
+      this.purchaseService.purchase.PurcahseDetail.GoldPrice=0;
+    this.purchaseService.purchase.PurcahseDetail.MakingPerGram=0;
+    this.purchaseService.purchase.PurcahseDetail.MakingType=0;
+    this.purchaseService.purchase.PurcahseDetail.TotalMaking=0;
 
     }
     ondelete(item:any)

@@ -95,8 +95,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AccountTypeService } from './shared/Services/Account/AccountType/account-type.service';
 import { FormulaService } from './shared/Services/Helper/formula.service';
 import { CurrencyTypeService } from './shared/Services/Master_Form/Currency-type.service';
-import { PaymentService } from './shared/Services/Payment/payment.service';
+// import { PaymentService } from './shared/Services/Payment/payment.service';
 import { DatePipe } from '@angular/common';
+import { BankService } from './shared/Services/Bank/bank.service';
+import { BankAccountHolderService } from './shared/Services/BankAccountHolder/bank-account-holder.service';
+import { PaymentService } from './shared/Services/Payment/payment.service';
  //import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
  
 
@@ -185,7 +188,7 @@ import { DatePipe } from '@angular/common';
     ,AuthGuard,CurrencyTypeService , RateMasterService,KaratMasterService,CustomerCategoryMasterService
     ,TypeMasterService, PurchaseService,StoneService,
     ,GoldRateService,RattiMasterService,PasaRateService,SubItemService,DefaultSettingService,AccountTypeService,
-   ,FormulaService,PaymentService,DatePipe,
+   ,FormulaService,PaymentService,DatePipe,BankService,BankAccountHolderService,
     {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,

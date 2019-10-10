@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CurrencyType } from '../../Models/Master_Form/currency-master.model';
+import { CurrencyType } from '../../Models/Master_Form/Currency-type.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment, Controllers } from '../../../../environments/environment.prod';
 

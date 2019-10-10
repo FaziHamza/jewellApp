@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CurrencyType } from '../../../shared/Models/Master_Form/currency-master.model';
+import { CurrencyType } from '../../../shared/Models/Master_Form/Currency-type.model';
 import { ToastrService } from 'ngx-toastr';
 import { CurrencyTypeService } from '../../../shared/Services/Master_Form/Currency-type.service';
 

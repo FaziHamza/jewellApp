@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CurrencyType } from '../Models/Master_Form/currency-master.model';
+import { CurrencyType } from '../Models/Master_Form/Currency-type.model';
 import { Purchase } from './purchase.model';
 import { PurcahseDetail } from './purchase-details.model';
 import { environment, Controllers } from '../../../environments/environment.prod';

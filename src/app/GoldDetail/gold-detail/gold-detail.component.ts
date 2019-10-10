@@ -10,7 +10,15 @@ import { CurrencyTypeService } from 'src/app/shared/Services/Master_Form/Currenc
 import { GoldRateService } from 'src/app/shared/Services/GoldRate/gold-rate.service';
 import { PaymentService } from 'src/app/shared/Services/Payment/payment.service';
 import { PurchaseService } from 'src/app/shared/Purchaseservices/purchase.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
+import { BankService } from 'src/app/shared/Services/Bank/bank.service';
+import { Bank } from 'src/app/shared/Models/Bank/Bank.model';
+import { BankAccountHolder } from 'src/app/shared/Models/BankAccountHolder/BankAccountHolder.mdoel';
+import { BankAccountHolderService } from 'src/app/shared/Services/BankAccountHolder/bank-account-holder.service';
+import { CurrencyDetail } from 'src/app/shared/Models/CurrencyDetail/currency-detail.model';
+import { GoldDetail } from 'src/app/shared/Models/GoldDetail/gold-detail.model';
+import { ChequeDetail } from 'src/app/shared/Models/Cheque/ChequeDetail.model';
+import { GoldRates } from 'src/app/shared/Models/GoldRate/gold-rate.model';
 @Component({
   selector: 'app-gold-detail',
   templateUrl: './gold-detail.component.html',
@@ -34,161 +42,222 @@ export class GoldDetailComponent implements OnInit {
   mattelPanel:boolean=false;
   chequePanel:boolean=false;
   paymentType="Gold";
+  paidRecived ;
   goldRateDetail:any; 
   goldRate;
   description;
   paymentTypeInList;
   gold;
   ruppes;
+  GoldRate;
 
   public  karatmasterList : KaratMaster[];
    //constructor(public activeModal: NgbActiveModal) { }
   constructor(public paymentService:PaymentService ,
     public purchaseService:PurchaseService,
-     public defaultSettingService :DefaultSettingService ,
+    public defaultSettingService :DefaultSettingService ,
      public formulaService : FormulaService,
      public  currencyTypeService :CurrencyTypeService,
      public goldRateService :GoldRateService,
-      public karatMasterservive:KaratMasterService,
-      public datePipe: DatePipe){
+    public karatMasterservive:KaratMasterService,
+      public bankService:BankService,
+      public datePipe: DatePipe,
+      public bankAccountHolderService: BankAccountHolderService,
+      )
+      {
         setInterval(() => {
           this.currentDateTime = this.datePipe.transform(new Date(),"MMM d, y, h:mm:ss a")}, 1);
       }
   ngOnInit() {
+    if(this.paymentService.formtype=="Purchase"){
+      this.paidRecived ="Recived";
+    }else{
+      this.paidRecived ="Paid";
+
+    }
     this.resetForm();
     this.karatMasterservive.getKaratList().subscribe(res => {
       this.karatmasterList = res as KaratMaster[];
     });
+    this.bankService.getBanks();
 
       this.currencyTypeService.getcurrencyList().subscribe(res => {
       this.currencyList = res as any[];
+       this.paymentService.paymentVm.GoldDetail.CurrencyTypes = this.currencyList.filter(c=>c.Code=="PKR")[0];
     });
     this.goldRateService.getGoldRateSubscribe().subscribe(res => {
       this.goldRateDetail = res as any;
       this.goldRate = this.goldRateDetail.K24Tola;
     });
+    alert(JSON.stringify(localStorage.getItem("User")));
+   // alert(this.GoldRate);
+    // alert(JSON.stringify(AppSettting.GoldRates));
 }
-  
+
   resetForm(form? : NgForm): any {
     if(form!=null)
       form.reset();
-      this.paymentService.goldDetail ={
-        GoldDetailId :0,
-        Kaat_Point:0,
-        Karat:0,
-        PurchaseNo:0,
-        Pureweight:0,
-        SaleNo:0,
-        Weight:0,
-        CurrencyTypes:null,
-        Net:0,
-        Amount:0,
-        CurrencyRate:0,
-        Remarks:'',
-        GoldRate:0,
-        Banks:null,
-        ChequeDate:null,
-        ChequeNumber:'',
-        AccountNo:'',
-        // AcBankAccountHolders:null
+      this.paymentService.paymentVm ={
+      ChequeDetail :new ChequeDetail(),
+      CurrencyDetail: new CurrencyDetail(),
+      GoldDetail :new GoldDetail(),
       }
   }
 
+    calculateTotal(paymentType, amount){
+     
+      if(paymentType=="Gold"){
+        this.purchaseService.purchase.GoldPayment +=Number(amount);
+      }else{
+        this.purchaseService.purchase.CashPayment +=Number(amount);
+      }
+    }
   onSubmit( )
 {
-  if(this.paymentService.goldDetail.CurrencyTypes.Type=="Mattel"){
+ 
+  if(this.paymentType=="Gold"){
+    this.gold = this.paymentService.paymentVm.GoldDetail.Net;
+    this.ruppes =0;
+  }else{
+    this.ruppes = this.paymentService.paymentVm.GoldDetail.Net;
+    this.gold=0;
+  }
+
+  if(this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type=="Mattel"){
     this.mattelDetailList =
     {
-      CurrencyCode: this.paymentService.goldDetail.CurrencyTypes.Code,
-      Kaat_Point: this.paymentService.goldDetail.Kaat_Point,
-      GoldDetailId: this.paymentService.goldDetail.GoldDetailId,
-      Karat: this.paymentService.goldDetail.Karat,
-      Weight: this.paymentService.goldDetail.Weight,
-      Pureweight: this.paymentService.goldDetail.Pureweight,
+      CurrencyCode: this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code,
+      Kaat_Point: this.paymentService.paymentVm.GoldDetail.Kaat_Point,
+      GoldDetailId: this.paymentService.paymentVm.GoldDetail.GoldDetailId,
+      Karat: this.paymentService.paymentVm.GoldDetail.Karat,
+      Weight: this.paymentService.paymentVm.GoldDetail.Weight,
+      Pureweight: this.paymentService.paymentVm.GoldDetail.Pureweight,
       PaymentType:this.paymentType,
-      MasterType:this.paymentService.goldDetail.CurrencyTypes.Type,
+      MasterType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type,
+      Net: this.paymentService.paymentVm.GoldDetail.Net,
+      Status:this.paidRecived,
     }
 this.paymentService.mattelDetailArray.push(this.mattelDetailList);
+this.calculateTotal(this.paymentType,this.paymentService.paymentVm.GoldDetail.Net);
 // this.description = this.paymentService.goldDetail.CurrencyTypes.Code +" Currency Rate : "+ this.paymentService.goldDetail.CurrencyRate +" Amount : "+ this.paymentService.goldDetail.Amount +" Date : "+ this.currentDateTime +" Gold Rate :"+ this.goldRate +" ";
-
-this.description = this.paymentService.goldDetail.CurrencyTypes.Code +" Kaat : "+ this.paymentService.goldDetail.Kaat_Point + " Date : "+ this.currentDateTime +" Gold Rate : "+ this.goldRate +" ";
-this.gold = this.paymentService.goldDetail.Net;
-
-  }else if(this.paymentService.goldDetail.CurrencyTypes.Type=="Currency"){
+this.description = this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code +" Kaat : "+ this.paymentService.paymentVm.GoldDetail.Kaat_Point + " Date : "+ this.currentDateTime +" Gold Rate : "+ this.goldRate +" ";
+  }
+  else if(this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type=="Currency"){
     this.currencyDetailList =
     {
-      Name: this.paymentService.goldDetail.CurrencyTypes.Code,
-      CurrencyId: this.paymentService.goldDetail.CurrencyTypes.CurrencyId,
-      Amount: this.paymentService.goldDetail.Amount,
-      Net: this.paymentService.goldDetail.Net,
-      Rate: this.paymentService.goldDetail.CurrencyRate,
-      Remarks: this.paymentService.goldDetail.Remarks,
+      Name: this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code,
+      CurrencyId: this.paymentService.paymentVm.GoldDetail.CurrencyTypes.CurrencyId,
+      Amount: this.paymentService.paymentVm.GoldDetail.Amount,
+      Net: this.paymentService.paymentVm.GoldDetail.Net,
+      Rate: this.paymentService.paymentVm.GoldDetail.CurrencyRate,
+      Remarks: this.paymentService.paymentVm.GoldDetail.Remarks,
       PaymentType:this.paymentType,
-      MasterType:this.paymentService.goldDetail.CurrencyTypes.Type,
+      MasterType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type,
+      Status:this.paidRecived,
     }
 this.paymentService.currencyDetailArray.push(this.currencyDetailList);
-this.ruppes = this.paymentService.goldDetail.Net;
-this.description =  this.paymentService.goldDetail.CurrencyTypes.Code +" Currency Rate : "+ this.paymentService.goldDetail.CurrencyRate +" Amount : "+ this.paymentService.goldDetail.Amount +" Date : "+ this.currentDateTime +" Gold Rate :"+ this.goldRate +" ";
+this.calculateTotal(this.paymentType,this.ruppes);
+
+this.description =  this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code +" Currency Rate : "+ this.paymentService.paymentVm.GoldDetail.CurrencyRate +" Amount : "+ this.paymentService.paymentVm.GoldDetail.Amount +" Date : "+ this.currentDateTime +" Gold Rate :"+ this.goldRate +" ";
 
   }
+  else if(this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type=="Cheque")
+  {
+    this.chequeDetailList=
+    {
+      ChequeNumber:this.paymentService.paymentVm.ChequeDetail.ChequeNumber,
+      ChequeDate:this.paymentService.paymentVm.ChequeDetail.ChequeDate,
+      BankId:this.paymentService.paymentVm.ChequeDetail.Banks.BankId,
+      BankAccountHolderId:this.paymentService.paymentVm.ChequeDetail.BankAccountHolders.AccountHolderId,
+      AccountNo:this.paymentService.paymentVm.ChequeDetail.BankAccountHolders.AccountHolderNo,
+      Amount:this.paymentService.paymentVm.ChequeDetail.Amount,
+      Net:this.paymentService.paymentVm.ChequeDetail.Net,
+      PaymentType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code,
+      MasterType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type,
+      Status:this.paidRecived,
+
+    }
+  this.paymentService.chequeDetailArray.push(this.chequeDetailList);
+  this.calculateTotal(this.paymentType,this.paymentService.paymentVm.GoldDetail.Net);
+this.ruppes = this.paymentService.paymentVm.GoldDetail.Net;
+
+  this.description =  this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code +" Account Detail : "+ this.paymentService.paymentVm.ChequeDetail.BankAccountHolders.AccountHolderName
+  +","+ this.paymentService.paymentVm.ChequeDetail.BankAccountHolders.AccountHolderNo +","+ this.paymentService.paymentVm.ChequeDetail.Banks.BankName +" Amount : "+this.paymentService.paymentVm.GoldDetail.Net +" Date : "+ this.currentDateTime +" Gold Rate :"+ this.goldRate +" ";
+  // this.purchaseService.purchase. = Number(this.purchaseService.purchase.GoldPayment)+ Number(this.paymentService.goldDetail.Net);
+
+  }
+
   this.allPaymentDetailList=
   {
-    PaymentType:this.paymentService.goldDetail.CurrencyTypes.Code,
-    MasterType:this.paymentService.goldDetail.CurrencyTypes.Type,
+    PaymentType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Code,
+    MasterType:this.paymentService.paymentVm.GoldDetail.CurrencyTypes.Type,
     Description:this.description,
     Gold:this.gold,
     Rupess:this.ruppes,
+    Status:this.paidRecived,
   };
 this.paymentService.allPaymentsArray.push(this.allPaymentDetailList)
 this.gold= ''
 this.ruppes= ''
 
-// this.purchaseService.purchase.GoldPayment = Number(this.purchaseService.purchase.GoldPayment)+ Number(this.paymentService.goldDetail.Pureweight);
 //this.resetForm();
 }
 ondelete(item:any)
 { 
   if(item.MasterType=="Currency"){
-    
-    let currencyIndex=this.paymentService.currencyDetailArray.indexOf(item.MasterType);
-    this.paymentService.currencyDetailArray.splice(currencyIndex, 1);
+    this.deleteRecode(this.paymentService.currencyDetailArray,item.MasterType);
   }else if(item.MasterType=="Mattel"){
-
-    let mattelIndex=this.paymentService.mattelDetailArray.indexOf(item.MasterType);
-    this.paymentService.mattelDetailArray.splice(mattelIndex, 1);
+    this.deleteRecode(this.paymentService.mattelDetailArray,item.MasterType);
   }
-  let paymentsIndex=this.paymentService.allPaymentsArray.indexOf(item);
-    this.paymentService.allPaymentsArray.splice(paymentsIndex, 1);
-      // console.log("item : "+item);
-      // console.log("item id : "+item.id);
-      // let index=this.paymentService.mattelDetailArray.indexOf(item);
-      // this.paymentService.mattelDetailArray.splice(index, 1);
+  else if(item.MasterType=="Cheque")
+  {
+    this.deleteRecode(this.paymentService.chequeDetailArray,item.MasterType);
+
+  }
+  this.deleteRecode(this.paymentService.allPaymentsArray,item);
+
       this.purchaseService.purchase.GoldPayment = Number(this.purchaseService.purchase.GoldPayment) -Number(item.Pureweight) ;//this.paymentService.goldDetail.Pureweight;
     }
 
+
+
+    deleteRecode(list,itemName){
+      let Index=list.indexOf(itemName);
+      list.splice(Index, 1);
+      
+      }
     
     calculateGoldDetail(){
     
-      if(this.paymentService.goldDetail.CurrencyTypes.Type=="Mattel")
-      {
-        this.paymentService.goldDetail.Pureweight =  Number(this.formulaService.calculatePureWeight(this.paymentService.goldDetail.Weight,0,this.paymentService.goldDetail.Kaat_Point));
-        if(this.paymentType=='Gold'){
-          this.paymentService.goldDetail.Net=  this.paymentService.goldDetail.Pureweight
-        }else{
-        var res =  Number(((this.goldRate)/11.664)*Number(this.paymentService.goldDetail.Pureweight)).toFixed(AppSettting.ToFixed);
-        this.paymentService.goldDetail.Net = Number(res); 
-      }
-      }
-      else if(this.paymentService.goldDetail.CurrencyTypes.Type=="Currency"){
-        if(this.paymentType=='Gold'){
-          var res =  Number(((this.goldRate)/11.664)/Number(this.paymentService.goldDetail.CurrencyRate)).toFixed(AppSettting.ToFixed);
-          this.paymentService.goldDetail.Net = Number(res); 
+      // // // if(this.paymentService.goldDetail.CurrencyTypes.Type=="Mattel")
+      // // // {
+      // // //   this.paymentService.goldDetail.Pureweight =  Number(this.formulaService.calculatePureWeight(this.paymentService.goldDetail.Weight,0,this.paymentService.goldDetail.Kaat_Point));
+      // // //   if(this.paymentType=='Gold'){
+      // // //     this.paymentService.goldDetail.Net=  this.paymentService.goldDetail.Pureweight
+      // // //   }else{
+      // // //   var res =  Number(((this.goldRate)/11.664)*Number(this.paymentService.goldDetail.Pureweight)).toFixed(AppSettting.ToFixed);
+      // // //   this.paymentService.goldDetail.Net = Number(res); 
+      // // // }
+      // // // }
+      // // // else if(this.paymentService.goldDetail.CurrencyTypes.Type=="Currency"){
+      // // //   if(this.paymentType=='Gold'){
+      // // //     var res =  Number(((this.goldRate)/11.664)/Number(this.paymentService.goldDetail.CurrencyRate)).toFixed(AppSettting.ToFixed);
+      // // //     this.paymentService.goldDetail.Net = Number(res); 
        
-        }else{
-          var res =  Number(Number(this.paymentService.goldDetail.CurrencyRate)*Number(this.paymentService.goldDetail.Amount)).toFixed(AppSettting.ToFixed);
-        this.paymentService.goldDetail.Net = Number(res); 
-        }
-      }
+      // // //   }else{
+      // // //     var res =  Number(Number(this.paymentService.goldDetail.CurrencyRate)*Number(this.paymentService.goldDetail.Amount)).toFixed(AppSettting.ToFixed);
+      // // //   this.paymentService.goldDetail.Net = Number(res); 
+      // // //   }
+      // // // }
+      // // // else if(this.paymentService.goldDetail.CurrencyTypes.Type=="Cheque"){
+      // // //   if(this.paymentType=='Gold'){
+      // // //     var res =  Number(((this.goldRate)/11.664)/Number(this.paymentService.goldDetail.Amount)).toFixed(AppSettting.ToFixed);
+      // // //     this.paymentService.goldDetail.Net = Number(res); 
+       
+      // // //   }else{
+      // // //   this.paymentService.goldDetail.Net = Number(this.paymentService.goldDetail.Amount)
+      // // //   }
+      // // // }
       
     
 
@@ -198,15 +267,37 @@ ondelete(item:any)
 
      
    }
-   paymentTypeChange(){
+   
+  //  paymentTypeChange(){
+  //   if(this.paymentType=="Gold"){
+  //     this.paymentType="Pkr Rupees"
+  //   }
+  //   else if(this.paymentType="Pkr Rupees"){
+  //    this.paymentType="Gold"
+
+  //   }
+  //   this.calculateGoldDetail();
+  // }
+  
+   paymentTypeChange()
+   {
      if(this.paymentType=="Gold"){
        this.paymentType="Pkr Rupees"
      }
      else if(this.paymentType="Pkr Rupees"){
       this.paymentType="Gold"
-
      }
      this.calculateGoldDetail();
+   }
+
+   paidRecivedChange(){
+    if(this.paidRecived=="Paid"){
+      this.paidRecived="Recived"
+    }
+    else if(this.paidRecived="Recived"){
+     this.paidRecived="Paid"
+
+    }
    }
    onCurrency(item:any){
   
@@ -238,17 +329,24 @@ ondelete(item:any)
      }else if(item.Type=="Currency"){
       this.showHide(false,false,false,true);
      }
-    
    }
    showHide(cheque,card, mattel, currency){
-  
     this.chequePanel=cheque;
     this.cardPanel=card;
     this.mattelPanel=mattel;
     this.currencyPanel=currency;
-
    }
-   
+   onBankChange(item:Bank){
+    //  alert(item.BankId);
+    this.paymentService.paymentVm.ChequeDetail.AccountNo ='';
+     this.bankAccountHolderService.getBankAccountHolder(item.BankId).subscribe(res=>{
+      this.bankAccountHolderService.bankAccountHolder = res as BankAccountHolder[];
+
+     })
+   }
+   onBankAccountHolder(item:BankAccountHolder){
+    this.paymentService.paymentVm.ChequeDetail.AccountNo=item.AccountHolderNo;
+   }
   //  onKaratChange(event){
   //       this.paymentService.getStandardPurity(event).subscribe(res => this.paymentService.goldDetail.Kaat_Point = res as number);
   //       }
