@@ -1,2 +1,18 @@
-<h3>currencyDetailArray</h3>
-<p>{{paymentService.currencyDetailArray |json}}</p>
+
+
+<app-navbar></app-navbar>
+<form   autocomplete="off"  #golddetail="ngForm" (ngSubmit)="OnSubmit(golddetail)" >
+
+    <div class="form-group col" >
+        <label>weight</label>
+    <input #Name="ngModel" (keyup)="Done()" name="Name"  [(ngModel)]="paymentService.vmmodel.currencyDetail.Name" class="form-control">
+
+      </div>
+      
+    <div class="form-group col" >
+        <label>weight</label>
+    <input #Amount="ngModel" name ="Amount" [(ngModel)]="paymentService.vmmodel.goldDetail.Amount" class="form-control">
+
+      </div>
+      <button type="submit">Submit</button>
+</form>

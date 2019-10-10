@@ -26,8 +26,8 @@ export class AccountMaster {
       Street :String;
       Near :String;
       CityName:string;
-      MobileNo:string[];
-      PhonoNo:string[];     
+      MobileNos:string[];
+      PhoneNos:string[];     
       AccountTypeId:string;
       AccountTypes: AccountType;
      

@@ -97,15 +97,14 @@ export class AccountMasterComponent implements OnInit {
       Street:'',
       Near:'',
       CityName:'',
-      MobileNo:[],
-      PhonoNo:[],
+      MobileNos:[],
+      PhoneNos:[],
       AccountTypeId:'',
       AccountTypes:null,
    
 
 
     }
-   
   }
   addType(AccountType:string)
   {
@@ -196,7 +195,7 @@ export class AccountMasterComponent implements OnInit {
     this.accountService.account.AccountTypes =JSON.parse(this.accountService.account.AccountTypeId);
     // alert(this.accountService.account.AccountTypes) ;
     // alert(JSON.stringify(form.value));
-   this.accountService.account.MobileNo = this.mobileList;
+   this.accountService.account.MobileNos = this.mobileList;
   //  for (let i = 0; i < 7; i++) {
   //   this.accountService.account.AccountTypes
   // }

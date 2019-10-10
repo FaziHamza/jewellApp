@@ -1,6 +1,9 @@
 <div class="row">
-  <div class="col-4">
-    <h4 class="dispaly-4">Gold Detail {{currentDateTime}}</h4>
+  <div class="col-2">
+    <h4 class="dispaly-4">Gold Detail </h4>
+  </div>
+  <div class="col-2  text-left">
+    <button [ngStyle]="paidRecived=='Paid'?{'background-color':'#5FBA7D'} : {'background-color': 'orange'}" class="btn text-white btn-block btn-sm" type="button" (click)="paidRecivedChange()">{{paidRecived}}</button>
   </div>
   <div class="col-2  text-left">
       <button [ngStyle]="paymentType=='Gold'?{'background-color':'orange'} : {'background-color': '#5FBA7D'}" class="btn text-white btn-block btn-sm" type="button" (click)="paymentTypeChange()">{{paymentType}}</button>
@@ -9,11 +12,11 @@
         <span>Gold Rate</span>
     </div>
     <div class="col-2 text-left ">
-      
+
         <p class="form-control" > {{goldRate}}</p>
       </div>
   <div class="col-2 text-right">
-  
+
     <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> X </button>
 
   </div>
@@ -21,131 +24,137 @@
 <hr>
 <div class="row">
   <div class="col">
-    <form   autocomplete="off"  #golddetail="ngForm" (submit)="onSubmit(golddetail)" >
+    <form   autocomplete="off"  #golddetail="ngForm" (ngSubmit)="onSubmit(golddetail)" >
       <div class="mb-4">
     <div class="form-row ">
         <div class="form-group col-md-2">
             <label>Payment Type </label>
-      
+
         <!-- <ng-select [items]="currencyList"
         bindLabel="Code"
         placeholder="Select"
         [ngModelOptions]="{standalone: true}"
-        name="CurrencyType"   (change)="onCurrency($event)"   #CurrencyType="ngModel" [(ngModel)]="paymentService.goldDetail.CurrencyType">
+        name="CurrencyType"   (change)="onCurrency($event)"   #CurrencyType="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.CurrencyType">
 </ng-select> -->
 <ng-select [items]="currencyList"
 bindLabel="Code"
 placeholder="Select Name"
 [ngModelOptions]="{standalone: true}"
-name="CurrencyTypes" (change)="onCurrency($event)" required #CurrencyTypes="ngModel" [(ngModel)]="paymentService.goldDetail.CurrencyTypes">
+name="CurrencyTypes" (change)="onCurrency($event)" required #CurrencyTypes="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.CurrencyTypes">
 </ng-select>
           </div>
 
     <div class="form-group col" *ngIf="mattelPanel">
         <label>weight</label>
-    <input name="Weight" #Weight="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.goldDetail.Weight" class="form-control">
+    <input name="Weight" #Weight="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.paymentVm.GoldDetail.Weight" class="form-control">
 
       </div>
       <div class="form-group col" *ngIf="defaultSettingService.readonly!=true" >
           <label>Karat</label>
-          <!-- <input name="Karat" readonly="{{variable}}" (keyup)="calculateGoldDetail()" #Karat="ngModel" [(ngModel)]="paymentService.goldDetail.Karat" class="form-control"> -->
-          <select  class="form-control"  [disabled]="defaultSettingService.readonly"  (onload)="onKaratChange($event.target.value)"  (change)="onKaratChange($event.target.value)" (change)="calculateGoldDetail()" name="Karat" #Karat="ngModel" [(ngModel)]="paymentService.goldDetail.Karat"> 
+          <!-- <input name="Karat" readonly="{{variable}}" (keyup)="calculateGoldDetail()" #Karat="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.Karat" class="form-control"> -->
+          <select  class="form-control"  [disabled]="defaultSettingService.readonly"  (onload)="onKaratChange($event.target.value)"  (change)="onKaratChange($event.target.value)" (change)="calculateGoldDetail()" name="Karat" #Karat="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.Karat">
               <option  *ngFor="let item of karatmasterList ;let i = index" [value]="item.KaratCode" data-value={{item.KaratCode}}>{{item.KaratCode}}</option>
-            
-         </select>   
-         
+
+         </select>
+
         </div>
         <div class="form-group col" *ngIf="mattelPanel">
             <label>Kaat/Point</label>
-            <input name="Kaat_Point"  #Kaat_Point="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.goldDetail.Kaat_Point" class="form-control">
+            <input name="Kaat_Point"  #Kaat_Point="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.paymentVm.GoldDetail.Kaat_Point" class="form-control">
           </div>
           <div class="form-group col" *ngIf="mattelPanel">
               <label>Pureweight</label>
-              <input name="Pureweight"  #Pureweight="ngModel" [(ngModel)]="paymentService.goldDetail.Pureweight" class="form-control">
+              <input name="Pureweight"  #Pureweight="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.Pureweight" class="form-control">
             </div>
             <div class="form-group col" *ngIf="mattelPanel">
-                <label>Net</label>
-                <input name="Net"  #Net="ngModel" [(ngModel)]="paymentService.goldDetail.Net" class="form-control">
+                <label>Net</label> 
+                <input name="Net"  #Net="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.Net" class="form-control">
               </div>
               <!-- if panel is Currecny -->
               <div class="form-group col" *ngIf="currencyPanel">
                   <label>Currency Rate</label>
-                  <input name="CurrencyRate"  #CurrencyRate="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.goldDetail.CurrencyRate" class="form-control">
+                  <input name="CurrencyRate"  #CurrencyRate="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.paymentVm.GoldDetail.CurrencyRate" class="form-control">
                 </div>
                 <div class="form-group col" *ngIf="currencyPanel">
                     <label>Amount</label>
-                    <input name="Amount"  #Amount="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.goldDetail.Amount"  class="form-control">
+                    <input name="Amount"  #Amount="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.paymentVm.GoldDetail.Amount"  class="form-control">
                   </div>
                   <div class="form-group col" *ngIf="currencyPanel">
                       <label>Net</label>
-                      <input name="Net"  #Net="ngModel" [(ngModel)]="paymentService.goldDetail.Net" (keyup)="calculateGoldDetail()" class="form-control">
+                      <input name="Net"  #Net="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.Net" (keyup)="calculateGoldDetail()" class="form-control">
                     </div>
                     <div class="form-group col" *ngIf="currencyPanel">
                         <label>Remarks</label>
-                        <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+                        <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.paymentVm.GoldDetail.Remarks"  class="form-control">
                       </div>
                       <div class="form-group col"    *ngIf="currencyPanel || mattelPanel ||cardPanel ">
                           <label>&nbsp;</label>
                           <br>
                           <button type="submit"
-                       
-                        
+
+
 
                           class="btn btn-dark btn-sm"><i class="fa fa-database"></i> Submit</button>
-                  
+
                         </div>
                    <!-- //Cheque -->
                    <div class="form-group col"  *ngIf="chequePanel">
                       <label>Number</label>
-                      <input name="ChequeNumber"  #ChequeNumber="ngModel" [(ngModel)]="paymentService.goldDetail.ChequeNumber"  class="form-control">
+                      <input name="ChequeNumber"  #ChequeNumber="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.ChequeNumber"  class="form-control">
                     </div>
-                    <div class="form-group col"  *ngIf="chequePanel">
-                        <label>ChequeDate</label>
-                        <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
-                      </div>
+
                       <div class="form-group col"  *ngIf="chequePanel">
                           <label>Bank Name</label>
-                          
-                          <input name="Banks"  #Banks="ngModel" [(ngModel)]="paymentService.goldDetail.Banks"  class="form-control">
+
+                          <select class="form-control" name="Banks" #Banks="ngModel"         [ngModelOptions]="{standalone: true}"  (ngModelChange)="onBankChange($event)"[(ngModel)]="paymentService.paymentVm.ChequeDetail.Banks">
+                              <option *ngFor="let item of bankService.bankList" [ngValue]="item" >{{item.BankName}}</option>
+                            </select>
                         </div>
                         <div class="form-group col"  *ngIf="chequePanel">
                             <label>Account Holder</label>
-                            <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+                            <select class="form-control" name="BankAccountHolders" #BankAccountHolders="ngModel"         [ngModelOptions]="{standalone: true}"  (ngModelChange)="onBankAccountHolder($event)"[(ngModel)]="paymentService.paymentVm.ChequeDetail.BankAccountHolders">
+                              <option>--Select </option>
+                              <option *ngFor="let item of bankAccountHolderService.bankAccountHolder" [ngValue]="item" >{{item.AccountHolderName}}</option>
+                              </select>
+                            <!-- <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.BankAccountHolders"  class="form-control"> -->
                           </div>
                           <div class="form-group col"  *ngIf="chequePanel">
-                              <label>Bank Number</label>
-                              <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+                              <label>Account No</label>
+
+                              <input name="AccountNo"  #AccountNo="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.AccountNo"  class="form-control">
                             </div>
-                   
+                            <!-- <div class="form-group col"></div> -->
+
     </div>
     <div class="form-row " *ngIf="chequePanel">
         <div class="form-group col-md-2">
         </div>
         <div class="form-group col">
-            <label>check date</label>
-            <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+            <label>Check date</label>
+            <input name="Remarks"  type="date" #Remarks="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.Remarks"  class="form-control">
           </div>
-          <div class="form-group col">
+          <div class="form-group col" >
               <label>Amount</label>
-              <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+              <input name="Amount"  #Amount="ngModel" (keyup)="calculateGoldDetail()" [(ngModel)]="paymentService.paymentVm.ChequeDetail.Amount"  class="form-control">
             </div>
-            <div class="form-group col">
+            <div class="form-group col" >
                 <label>Net</label>
-                <input name="Remarks"  #Remarks="ngModel" [(ngModel)]="paymentService.goldDetail.Remarks"  class="form-control">
+                <input name="Net"  #Net="ngModel" [(ngModel)]="paymentService.paymentVm.ChequeDetail.Net" (keyup)="calculateGoldDetail()" class="form-control">
               </div>
+
               <div class="form-group col"    *ngIf="chequePanel">
                   <label>&nbsp;</label>
                   <br>
                   <button type="submit"
                   class="btn btn-dark btn-sm"><i class="fa fa-database"></i> Submit</button>
                 </div>
-                <div class="form-group col"></div>
-      
+
+
     </div>
   </div>
   </form>
   </div>
- 
+
 </div>
 <div class="row">
     <div class="col">
@@ -153,36 +162,37 @@ name="CurrencyTypes" (change)="onCurrency($event)" required #CurrencyTypes="ngMo
         <table class="table">
           <thead class="bg-info text-white form-group" >
             <tr style="line-height: 47% !important;">
-          
+
                 <th scope="col">Type </th>
-            
+
               <th scope="col">Description</th>
               <th scope="col">Gold</th>
               <th scope="col">Rupess</th>
-           
+              <th scope="col">Status</th>
+             
               <th></th>
+
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of paymentService.allPaymentsArray" style="line-height: 65% !important;">          
+            <tr *ngFor="let item of paymentService.allPaymentsArray" style="line-height: 65% !important;">
                 <td>{{item.PaymentType}}</td>
-         
+
               <td>{{item.Description}}</td>
               <td>{{item.Gold}}</td>
               <td>{{item.Rupess}}</td>
-
-         
+              <td>{{item.Status}}</td>
               <button type="button" class="btn btn-danger btn-sm" (click)="ondelete(item)">Delete</button>
-    
+
             </tr>
-        
+
           </tbody>
-  
+
         </table>
-     
+
       </div>
 </div>
-<div class="row">
+<!-- <div class="row">
   <div class="col">
       <p>{{paymentService.currencyDetailArray |json}}</p>
   </div>
@@ -198,4 +208,4 @@ name="CurrencyTypes" (change)="onCurrency($event)" required #CurrencyTypes="ngMo
       <p>{{paymentService.mattelDetailArray |json}}</p>
 
   </div>
-</div>
+</div> -->
